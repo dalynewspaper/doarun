@@ -1,5 +1,4 @@
 import 'package:doarun/states/onboarding_states.dart';
-import 'package:doarun/widgets/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +9,6 @@ class Onboarding extends StatelessWidget {
   final OnboardingStates onboardingStates = Get.find();
   final List<Widget> onboardingSteps = [
     OnboardingAuth(),
-    Loading(),
   ];
 
   @override
