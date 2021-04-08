@@ -1,3 +1,4 @@
+import 'package:doarun/screens/onboarding/onboarding.dart';
 import 'package:doarun/states/app_states.dart';
 import 'package:doarun/widgets/loading.dart';
 import 'package:flutter/cupertino.dart';
@@ -30,9 +31,14 @@ class _Redirections extends State<Redirections> {
         future: _future,
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData)
-            return Container();
+            switch (true) {
+              case (true):
+                return Onboarding();
+              default:
+                return Loading();
+            }
           else
-            return Container(color: Colors.white, child: Loading());
+            return Loading();
         });
   }
 }

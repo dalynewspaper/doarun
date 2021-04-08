@@ -26,5 +26,3 @@ class AppStates extends GetxController {
   RxBool uploadingProfilePicture = false.obs;
   bool loaded = false;
 }
-
-final AppStates appStates = Get.put(AppStates());
