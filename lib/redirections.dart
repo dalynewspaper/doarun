@@ -1,5 +1,6 @@
 import 'package:doarun/screens/onboarding/onboarding.dart';
 import 'package:doarun/states/app_states.dart';
+import 'package:doarun/utils/svg_loader.dart';
 import 'package:doarun/widgets/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,7 @@ class _Redirections extends State<Redirections> {
 
   Future<bool> loader() async {
     if (!appStates.loaded) await appStates.initApp();
+    await assetsLoader.loadSVGs();
     return true;
   }
 

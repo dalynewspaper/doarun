@@ -18,16 +18,10 @@ class Onboarding extends StatelessWidget {
         return (await _previousOnboardingStep());
       },
       child: Scaffold(
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Flexible(
-                fit: FlexFit.tight,
-                flex: 20,
-                child: Obx(() =>
-                    onboardingSteps[onboardingStates.onboardingStep.value])),
-          ],
+        body: Padding(
+          padding: const EdgeInsets.all(50.0),
+          child:
+              Obx(() => onboardingSteps[onboardingStates.onboardingStep.value]),
         ),
       ),
     );
