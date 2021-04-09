@@ -21,7 +21,7 @@ class OnboardingAuth extends StatelessWidget {
         Expanded(child: Container()),
         Text(
           "Description",
-          style: textStyleH1,
+          style: textStyleH2,
         ),
         Expanded(child: Container()),
         Container(
