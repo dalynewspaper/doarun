@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "878477674139",
+    "project_id": "doarun-ecf2d",
+    "storage_bucket": "doarun-ecf2d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878477674139:android:94387671f3bff8b397a83e",
+        "android_client_info": {
+          "package_name": "doarun.flutter_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878477674139-8kmu4qlapvpv8n7cd51c7ngp8frq0d03.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYMLlpFs-3-nXIy3g4r8aYsEqm8KCdUa0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878477674139-8kmu4qlapvpv8n7cd51c7ngp8frq0d03.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
