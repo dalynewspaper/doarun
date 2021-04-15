@@ -37,6 +37,7 @@ class _Redirections extends State<Redirections> {
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData)
             return Obx(() => _RedirectionFlow(
+                isAppLoading: appStates.loading.value,
                 onboardingStep: onboardingStates.onboardingStep.value));
           else
             return Loading();
@@ -46,16 +47,21 @@ class _Redirections extends State<Redirections> {
 
 class _RedirectionFlow extends StatelessWidget {
   final int onboardingStep;
+  final bool isAppLoading;
 
-  _RedirectionFlow({@required this.onboardingStep});
+  _RedirectionFlow(
+      {@required this.onboardingStep, @required this.isAppLoading});
 
   @override
   Widget build(BuildContext context) {
-    switch (onboardingStep) {
-      case (ID_ONBOARDING_STEP_AUTH):
-        return Onboarding();
-      default:
-        return Home();
-    }
+    if (isAppLoading)
+      return Loading();
+    else
+      switch (onboardingStep) {
+        case (ID_ONBOARDING_STEP_AUTH):
+          return Onboarding();
+        default:
+          return Home();
+      }
   }
 }

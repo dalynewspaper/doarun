@@ -1,6 +1,12 @@
+import 'package:doarun/states/account_states.dart';
+import 'package:doarun/states/app_states.dart';
 import 'package:doarun/states/onboarding_states.dart';
 import 'package:doarun/style/color.dart';
 import 'package:doarun/style/text.dart';
+import 'package:doarun/utils/auth.dart';
+import 'package:doarun/utils/local_storage/consts.dart';
+import 'package:doarun/utils/local_storage/local_storage.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -9,6 +15,8 @@ import 'package:lottie/lottie.dart';
 
 class OnboardingAuth extends StatelessWidget {
   final OnboardingStates onboardingStates = Get.find();
+  final AppStates appStates = Get.find();
+  final AccountStates accountStates = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +45,9 @@ class OnboardingAuth extends StatelessWidget {
                     RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(100.0))),
                 backgroundColor: MaterialStateProperty.all<Color>(mainColor)),
-            onPressed: () => onSignIn(),
+            onPressed: () async {
+              await _signIn(await authService.googleSignIn());
+            },
             child: Padding(
               padding: const EdgeInsets.only(
                   left: 50.0, right: 50, top: 10, bottom: 10),
@@ -47,7 +57,23 @@ class OnboardingAuth extends StatelessWidget {
     );
   }
 
-  void onSignIn() {
-    onboardingStates.onboardingStep.value += 1;
+  Future<void> _signIn(User firebaseUser) async {
+    if (firebaseUser == null)
+      Get.snackbar("Error", "something went wrong");
+    else {
+      appStates.setLoading(true);
+      if (await accountStates.doesAccountExists(firebaseUser.uid)) {
+        await accountStates.readAccount(firebaseUser.uid);
+      } else {
+        accountStates.account.uid = authService.auth.currentUser.uid;
+        accountStates.account.name.value = firebaseUser.displayName;
+        accountStates.account.pictureUrl.value = firebaseUser.photoURL;
+        await accountStates.createAccount();
+      }
+      localStorage.setStringData(
+          SHARED_PREF_KEY_ACCOUNT_ID, accountStates.account.uid);
+      appStates.setLoading(false);
+      onboardingStates.onboardingStep.value += 1;
+    }
   }
 }
