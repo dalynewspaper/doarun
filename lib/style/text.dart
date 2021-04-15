@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'color.dart';
+import 'color.dart';
 
 const TextStyle textStyleH1 = TextStyle(
     fontFamily: 'Londrina',
@@ -29,3 +30,22 @@ const TextStyle textStyleButton = TextStyle(
     color: Colors.white,
     fontStyle: FontStyle.normal,
     fontSize: 16);
+
+const TextStyle textStyleTitle = TextStyle(
+    fontFamily: 'Bangers',
+    color: Colors.white,
+    fontSize: 32);
+
+const TextStyle textStyleDistance = TextStyle(
+    fontFamily: 'Londrina',
+    color: mainColor,
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+    fontSize: 20);
+
+const TextStyle textStyleNames = TextStyle(
+    fontFamily: 'Londrina',
+    color: Colors.black,
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+    fontSize: 18);

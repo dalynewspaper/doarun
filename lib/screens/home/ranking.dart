@@ -1,8 +1,11 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:doarun/style/color.dart';
 import 'package:doarun/style/text.dart';
 import 'package:doarun/widgets/profile_picture.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../../style/color.dart';
 
 class Ranking extends StatelessWidget {
   @override
@@ -10,7 +13,7 @@ class Ranking extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("This week", style: textStyleH1),
+        _makeHeaderRanking(context),
         Container(height: 10),
         _Board(members: ["Brian", "JisJoe", "Cédric", "Jeffson", "Mark"]),
         Container(height: 30),
@@ -42,7 +45,7 @@ class _Board extends StatelessWidget {
                       child: Text((index + 1).toString() + ".",
                           style: textStyleH1Accent)),
                   ProfilePicture(height: 50, width: 50),
-                  Container(width: 50, child: Text(members[index])),
+                  Container(width: 50, child: AutoSizeText(members[index], style: textStyleNames)),
                   Container(width: 75, child: Text("12.5 km")),
                 ],
               ),
@@ -52,16 +55,50 @@ class _Board extends StatelessWidget {
   }
 }
 
+_makeTitle() {
+  return Container(
+    color: mainColor,
+    child: Padding(
+      padding: const EdgeInsets.fromLTRB(15.0, 15.0, 25.0, 15.0),
+      child: Text("This week", style: textStyleTitle),
+    ),
+  );
+}
+
+_makeHeaderRanking(context) {
+  return Container(
+    width: MediaQuery.of(context).size.width,
+    child: Stack(
+      alignment: AlignmentDirectional.centerStart,
+      children: [
+        _makeTitle(),
+        Positioned(
+            right: 40,
+            child: Text("Total distance", style: textStyleDistance)
+        )
+      ],
+    ),
+  );
+}
+
 class _AddMemberButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {},
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text("Add members", style: textStyleH2),
-          Container(width: 10),
-          Icon(Icons.person_add, color: mainColor),
+          Container(
+              decoration: BoxDecoration(
+                color: accentColor,
+                borderRadius: BorderRadius.circular(40)
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Icon(Icons.person_add, size: 40, color: Colors.white),
+              )
+          ),
         ],
       ),
     );

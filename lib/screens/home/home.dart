@@ -17,7 +17,7 @@ class Home extends StatelessWidget {
       child: Scaffold(
           appBar: getHomeAppBar(),
           body: Padding(
-            padding: const EdgeInsets.all(20.0),
+            padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
             child: ListView(
               shrinkWrap: true,
               children: [
