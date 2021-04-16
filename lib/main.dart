@@ -1,6 +1,5 @@
 import 'package:doarun/redirections.dart';
 import 'package:doarun/states/states_binding.dart';
-import 'package:doarun/style/color.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,11 +17,6 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       defaultTransition: Transition.fade,
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.light(
-          primary: mainColor,
-        ),
-      ),
       getPages: [
         GetPage(
           name: "/",

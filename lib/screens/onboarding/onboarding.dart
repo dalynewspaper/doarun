@@ -11,7 +11,7 @@ class Onboarding extends StatelessWidget {
   final AccountStates accountStates = Get.find();
   final List<Widget> onboardingSteps = [
     OnboardingAuth(),
-    //OnboardingGroupCreation()
+    OnboardingGroupCreation(),
     OnboardingStravaConnection()
   ];
 
@@ -22,10 +22,13 @@ class Onboarding extends StatelessWidget {
         return (await _previousOnboardingStep());
       },
       child: Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(50.0),
-          child: Obx(() =>
-              onboardingSteps[accountStates.account.onboardingStep.value]),
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(50.0),
+            child: Obx(() =>
+                onboardingSteps[accountStates.account.onboardingStep.value]),
+          ),
         ),
       ),
     );

@@ -57,7 +57,8 @@ class _RedirectionFlow extends StatelessWidget {
   Widget build(BuildContext context) {
     if (isAppLoading)
       return Loading();
-    else if (onboardingStep <= ID_ONBOARDING_STEP_STRAVA)
+    else if (onboardingStep == null ||
+        onboardingStep <= ID_ONBOARDING_STEP_STRAVA)
       return Onboarding();
     else
       return Home();

@@ -4,9 +4,9 @@ import 'dart:core';
 import 'package:get/get.dart';
 
 class EntityGroup extends GetxController {
-  String name;
-  RxString icon = "".obs;
-  RxDouble targetKm = 10.0.obs;
+  String name = "";
+  RxString icon = "👟".obs;
+  RxDouble targetKm = 0.0.obs;
   List<String> accounts = [];
 
   EntityGroup();
