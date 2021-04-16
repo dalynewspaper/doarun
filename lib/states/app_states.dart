@@ -25,10 +25,7 @@ class AppStates extends GetxController {
     if (userToken.isNotEmpty) {
       await accountStates.readAccount(userToken);
     }
-  }
-
-  void setLoading(bool value) {
-    loading.value = value;
+    loaded = true;
   }
 
   RxBool loading = false.obs;
