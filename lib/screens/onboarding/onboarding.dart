@@ -1,3 +1,4 @@
+import 'package:doarun/screens/onboarding/strava_connection/onboarding_strava_connection.dart';
 import 'package:doarun/states/account_states.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class Onboarding extends StatelessWidget {
   final List<Widget> onboardingSteps = [
     OnboardingAuth(),
     //OnboardingGroupCreation()
+    OnboardingStravaConnection()
   ];
 
   @override
