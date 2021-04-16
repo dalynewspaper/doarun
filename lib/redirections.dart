@@ -1,5 +1,6 @@
 import 'package:doarun/screens/home/home.dart';
 import 'package:doarun/screens/onboarding/onboarding.dart';
+import 'package:doarun/states/account_states.dart';
 import 'package:doarun/states/app_states.dart';
 import 'package:doarun/states/onboarding_states.dart';
 import 'package:doarun/utils/svg_loader.dart';
@@ -36,9 +37,8 @@ class _Redirections extends State<Redirections> {
         future: _future,
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData)
-            return Obx(() => _RedirectionFlow(
-                isAppLoading: appStates.loading.value,
-                onboardingStep: onboardingStates.onboardingStep.value));
+            return Obx(
+                () => _RedirectionFlow(isAppLoading: appStates.loading.value));
           else
             return Loading();
         });
@@ -46,22 +46,18 @@ class _Redirections extends State<Redirections> {
 }
 
 class _RedirectionFlow extends StatelessWidget {
-  final int onboardingStep;
   final bool isAppLoading;
+  final AccountStates accountStates = Get.find();
 
-  _RedirectionFlow(
-      {@required this.onboardingStep, @required this.isAppLoading});
+  _RedirectionFlow({@required this.isAppLoading});
 
   @override
   Widget build(BuildContext context) {
     if (isAppLoading)
       return Loading();
+    else if (accountStates.account.uid == null)
+      return Onboarding();
     else
-      switch (onboardingStep) {
-        case (ID_ONBOARDING_STEP_AUTH):
-          return Onboarding();
-        default:
-          return Home();
-      }
+      return Home();
   }
 }
