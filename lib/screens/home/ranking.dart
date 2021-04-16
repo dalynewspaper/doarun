@@ -45,7 +45,7 @@ class _Board extends StatelessWidget {
                       child: Text((index + 1).toString() + ".",
                           style: textStyleH1Accent)),
                   ProfilePicture(height: 50, width: 50),
-                  Container(width: 50, child: AutoSizeText(members[index], style: textStyleNames)),
+                  Container(width: 50, child: AutoSizeText(members[index], maxLines: 1, style: textStyleNames)),
                   Container(width: 75, child: Text("12.5 km")),
                 ],
               ),

@@ -1,6 +1,8 @@
 import 'package:doarun/redirections.dart';
+import 'package:doarun/screens/home/profile.dart';
 import 'package:doarun/states/states_binding.dart';
 import 'package:doarun/style/color.dart';
+import 'package:doarun/urls.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -32,7 +34,10 @@ class MyApp extends StatelessWidget {
                 systemNavigationBarIconBrightness: Brightness.dark,
               ),
               child: Redirections()),
-          binding: StatesBinding(),
+          binding: StatesBinding()),
+        GetPage(
+          name: URL_PROFILE,
+          page: () => Profile(),
         ),
 //        GetPage(name: URL_GROCERY_LIST_OPTION, page: () => GroceryListOption()),
       ],

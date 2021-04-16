@@ -25,16 +25,39 @@ const TextStyle textStyleH2 = TextStyle(
     fontStyle: FontStyle.normal,
     fontSize: 22);
 
+const TextStyle textStyleGroups = TextStyle(
+    fontFamily: 'Londrina',
+    color: Colors.black,
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+    fontSize: 18);
+
 const TextStyle textStyleButton = TextStyle(
     fontFamily: 'Roboto',
     color: Colors.white,
     fontStyle: FontStyle.normal,
     fontSize: 16);
 
+const TextStyle textStyleInfos = TextStyle(
+    fontFamily: 'Roboto',
+    color: Colors.black,
+    fontStyle: FontStyle.normal,
+    fontSize: 12);
+
 const TextStyle textStyleTitle = TextStyle(
     fontFamily: 'Bangers',
     color: Colors.white,
     fontSize: 32);
+
+const TextStyle textStyleGroupsTitle = TextStyle(
+    fontFamily: 'Bangers',
+    color: Colors.white,
+    fontSize: 24);
+
+const TextStyle textStyleUserName = TextStyle(
+    fontFamily: 'Bangers',
+    color: Colors.black,
+    fontSize: 40);
 
 const TextStyle textStyleDistance = TextStyle(
     fontFamily: 'Londrina',
