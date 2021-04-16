@@ -28,3 +28,7 @@ class AccountStates extends GetxController {
     API.entries.accounts.delete(FirebaseAuth.instance.currentUser.uid);
   }
 }
+
+const ID_ONBOARDING_STEP_AUTH = 0;
+const ID_ONBOARDING_STEP_GROUP_CREATION = 1;
+const ID_ONBOARDING_STEP_STRAVA = 2;

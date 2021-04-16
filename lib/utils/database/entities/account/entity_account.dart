@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:core';
 
+import 'package:doarun/states/account_states.dart';
 import 'package:get/get.dart';
 
 class EntityAccount extends GetxController {
@@ -8,6 +9,7 @@ class EntityAccount extends GetxController {
   RxString name = "".obs;
   RxString pictureUrl = "".obs;
   double totalDistance = 0.0;
+  RxInt onboardingStep = ID_ONBOARDING_STEP_AUTH.obs;
 
   EntityAccount();
 
@@ -20,6 +22,7 @@ class EntityAccount extends GetxController {
       "name": this.name.value,
       "pictureUrl": this.pictureUrl.value,
       "totalDistance": this.totalDistance,
+      "onboardingStep": this.onboardingStep.value,
     };
   }
 
@@ -33,6 +36,7 @@ class EntityAccount extends GetxController {
     this.name.value = data["name"];
     this.pictureUrl.value = data["pictureUrl"];
     this.totalDistance = data["totalDistance"];
+    this.onboardingStep.value = data["onboardingStep"];
     return true;
   }
 }

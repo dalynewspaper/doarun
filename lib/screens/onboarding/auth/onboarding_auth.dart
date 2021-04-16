@@ -1,6 +1,5 @@
 import 'package:doarun/states/account_states.dart';
 import 'package:doarun/states/app_states.dart';
-import 'package:doarun/states/onboarding_states.dart';
 import 'package:doarun/style/color.dart';
 import 'package:doarun/style/text.dart';
 import 'package:doarun/utils/auth.dart';
@@ -14,7 +13,6 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class OnboardingAuth extends StatelessWidget {
-  final OnboardingStates onboardingStates = Get.find();
   final AppStates appStates = Get.find();
   final AccountStates accountStates = Get.find();
 
@@ -51,7 +49,7 @@ class OnboardingAuth extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(
                   left: 50.0, right: 50, top: 10, bottom: 10),
-              child: Text("Sign-in with google", style: textStyleButton),
+              child: Text("Sign-in with google", style: textStyleStandardWhite),
             ))
       ],
     );
@@ -73,7 +71,8 @@ class OnboardingAuth extends StatelessWidget {
       localStorage.setStringData(
           SHARED_PREF_KEY_ACCOUNT_ID, accountStates.account.uid);
       appStates.setLoading(false);
-      onboardingStates.onboardingStep.value += 1;
+      accountStates.account.onboardingStep.value += 1;
+      accountStates.updateAccount();
     }
   }
 }

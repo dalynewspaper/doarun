@@ -22,7 +22,9 @@ class AppStates extends GetxController {
     await localStorage.init();
     final String userToken =
         localStorage.getStringData(SHARED_PREF_KEY_ACCOUNT_ID);
-    if (userToken.isNotEmpty) await accountStates.readAccount(userToken);
+    if (userToken.isNotEmpty) {
+      await accountStates.readAccount(userToken);
+    }
   }
 
   void setLoading(bool value) {
