@@ -42,7 +42,7 @@ class ServiceAccounts extends IService<EntityAccount> {
     await _collectionReference.doc(uid).update(entityAccount.toMap());
   }
 
-  Future<bool> isExist(uid) async {
+  Future<bool> isExist(String uid) async {
     final DocumentSnapshot snap = await _collectionReference.doc(uid).get();
     if (snap.data() == null) return false;
     return true;

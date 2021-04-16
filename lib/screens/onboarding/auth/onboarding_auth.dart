@@ -59,7 +59,7 @@ class OnboardingAuth extends StatelessWidget {
     if (firebaseUser == null)
       Get.snackbar("Error", "something went wrong");
     else {
-      appStates.setLoading(true);
+      appStates.loading.value = true;
       if (await accountStates.doesAccountExists(firebaseUser.uid)) {
         await accountStates.readAccount(firebaseUser.uid);
       } else {
@@ -70,9 +70,9 @@ class OnboardingAuth extends StatelessWidget {
       }
       localStorage.setStringData(
           SHARED_PREF_KEY_ACCOUNT_ID, accountStates.account.uid);
-      appStates.setLoading(false);
       accountStates.account.onboardingStep.value += 1;
       accountStates.updateAccount();
+      appStates.loading.value = false;
     }
   }
 }
