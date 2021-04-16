@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "878477674139-a4jag7vvdbh11d4h8me30d9iqtv8lr0t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "doarun.flutter_app",
+            "certificate_hash": "09c0a6653a2d2edefa9583d394a833ff5aee2f98"
+          }
+        },
+        {
           "client_id": "878477674139-8kmu4qlapvpv8n7cd51c7ngp8frq0d03.apps.googleusercontent.com",
           "client_type": 3
         }

@@ -1,7 +1,7 @@
 import 'package:doarun/screens/home/home.dart';
 import 'package:doarun/screens/onboarding/onboarding.dart';
+import 'package:doarun/states/account_states.dart';
 import 'package:doarun/states/app_states.dart';
-import 'package:doarun/states/onboarding_states.dart';
 import 'package:doarun/utils/svg_loader.dart';
 import 'package:doarun/widgets/loading.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,7 +15,7 @@ class Redirections extends StatefulWidget {
 
 class _Redirections extends State<Redirections> {
   final AppStates appStates = Get.find();
-  final OnboardingStates onboardingStates = Get.find();
+  final AccountStates accountStates = Get.find();
   Future<bool> _future;
 
   Future<bool> loader() async {
@@ -37,7 +37,9 @@ class _Redirections extends State<Redirections> {
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
           if (snapshot.hasData)
             return Obx(() => _RedirectionFlow(
-                onboardingStep: onboardingStates.onboardingStep.value));
+                  isAppLoading: appStates.loading.value,
+                  onboardingStep: accountStates.account.onboardingStep.value,
+                ));
           else
             return Loading();
         });
@@ -45,17 +47,19 @@ class _Redirections extends State<Redirections> {
 }
 
 class _RedirectionFlow extends StatelessWidget {
+  final bool isAppLoading;
   final int onboardingStep;
 
-  _RedirectionFlow({@required this.onboardingStep});
+  _RedirectionFlow(
+      {@required this.isAppLoading, @required this.onboardingStep});
 
   @override
   Widget build(BuildContext context) {
-    switch (onboardingStep) {
-      case (ID_ONBOARDING_STEP_AUTH):
-        return Onboarding();
-      default:
-        return Home();
-    }
+    if (isAppLoading)
+      return Loading();
+    else if (onboardingStep <= ID_ONBOARDING_STEP_STRAVA)
+      return Onboarding();
+    else
+      return Home();
   }
 }

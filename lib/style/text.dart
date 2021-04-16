@@ -24,7 +24,13 @@ const TextStyle textStyleH2 = TextStyle(
     fontStyle: FontStyle.normal,
     fontSize: 22);
 
-const TextStyle textStyleButton = TextStyle(
+const TextStyle textStyleButtonStandard = TextStyle(
+    fontFamily: 'Roboto',
+    color: Colors.black,
+    fontStyle: FontStyle.normal,
+    fontSize: 16);
+
+const TextStyle textStyleStandardWhite = TextStyle(
     fontFamily: 'Roboto',
     color: Colors.white,
     fontStyle: FontStyle.normal,
