@@ -44,6 +44,13 @@ const TextStyle textStyleInfos = TextStyle(
     fontStyle: FontStyle.normal,
     fontSize: 12);
 
+const TextStyle textStyleTradeMark = TextStyle(
+    fontFamily: 'Roboto',
+    color: Colors.black,
+    fontStyle: FontStyle.normal,
+    fontWeight: FontWeight.bold,
+    fontSize: 12);
+
 const TextStyle textStyleTitle = TextStyle(
     fontFamily: 'Bangers',
     color: Colors.white,
