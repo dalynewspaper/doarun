@@ -43,7 +43,7 @@ class OnboardingGroupCreation extends StatelessWidget {
             textInputType: TextInputType.name,
             onChanged: (String value) {
               onboardingStates.isGroupNameFieldValid.value = value.isNotEmpty;
-              groupStates.group.name = value;
+              groupStates.group.name = value.trim();
             },
             hintText: "group name")),
         Container(height: 30),
@@ -88,7 +88,14 @@ class OnboardingGroupCreation extends StatelessWidget {
                     groupStates.group.name.isNotEmpty;
                 onboardingStates.isKmTargetFieldValid.value =
                     groupStates.group.targetKm.value > 0.1;
+                print("1");
+              } else if (await groupStates
+                  .doesGroupExists(groupStates.group.name)) {
+                print("2");
+                if (!Get.isSnackbarOpen)
+                  Get.snackbar("Sorry :(", "This group name is already taken!");
               } else {
+                print("3");
                 groupStates.group.accounts.add(accountStates.account.uid);
                 await groupStates.createGroup();
                 accountStates.account.onboardingStep.value += 1;

@@ -5,8 +5,8 @@ import 'package:get/get.dart';
 class GroupStates extends GetxController {
   EntityGroup group = EntityGroup();
 
-  Future<bool> doesAccountExists(String accountId) async {
-    return await API.entries.accounts.isExist(accountId);
+  Future<bool> doesGroupExists(String groupName) async {
+    return await API.entries.groups.doesExist(groupName);
   }
 
   // CRUD

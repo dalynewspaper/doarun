@@ -42,7 +42,7 @@ class ServiceGroups extends IService<EntityGroup> {
     await _collectionReference.doc(uid).update(entityGroup.toMap());
   }
 
-  Future<bool> isExist(String uid) async {
+  Future<bool> doesExist(String uid) async {
     final DocumentSnapshot snap = await _collectionReference.doc(uid).get();
     if (snap.data() == null) return false;
     return true;
