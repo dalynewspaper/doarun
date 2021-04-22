@@ -1,5 +1,7 @@
 import 'package:doarun/screens/home/group_selector.dart';
 import 'package:doarun/screens/home/ranking.dart';
+import 'package:doarun/style/color.dart';
+import 'package:doarun/style/text.dart';
 import 'package:doarun/widgets/profile_picture.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +23,13 @@ class Home extends StatelessWidget {
             child: ListView(
               shrinkWrap: true,
               children: [
-                GroupSelector(),
-                Container(height: 15),
+                Stack(
+                  children: [
+                    GroupSelector(),
+                    targetIndicator(context),
+                  ],
+                ),
+                Container(height: 30),
                 Ranking(),
                 Container(height: 35),
                 LatestRun(),
@@ -53,6 +60,33 @@ class Home extends StatelessWidget {
         ),
         Container(width: 12),
       ],
+    );
+  }
+
+  targetIndicator(context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text("10 KM", style: textStyleKMNumber),
+              Container(width: 10),
+              SvgPicture.asset(
+                "assets/target.svg",
+                height: 30,
+              ),
+            ],
+          ),
+          Container(height: 10),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: 3,
+            color: accentColor,
+          ),
+        ],
+      ),
     );
   }
 }

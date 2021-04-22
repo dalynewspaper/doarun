@@ -56,6 +56,11 @@ const TextStyle textStyleTitle = TextStyle(
     color: Colors.white,
     fontSize: 32);
 
+const TextStyle textStyleKMNumber = TextStyle(
+    fontFamily: 'Bangers',
+    color: accentColor,
+    fontSize: 24);
+
 const TextStyle textStyleGroupsTitle = TextStyle(
     fontFamily: 'Bangers',
     color: Colors.white,
