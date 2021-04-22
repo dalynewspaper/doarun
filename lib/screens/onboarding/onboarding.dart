@@ -12,7 +12,7 @@ class Onboarding extends StatelessWidget {
   final List<Widget> onboardingSteps = [
     OnboardingAuth(),
     OnboardingGroupCreation(),
-    OnboardingStravaConnection()
+    OnboardingStravaConnection(),
   ];
 
   @override
@@ -23,13 +23,11 @@ class Onboarding extends StatelessWidget {
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(50.0),
-            child: Obx(() =>
-                onboardingSteps[accountStates.account.onboardingStep.value]),
-          ),
-        ),
+        body: Obx(() => Padding(
+              padding: const EdgeInsets.all(50.0),
+              child:
+                  onboardingSteps[accountStates.account.onboardingStep.value],
+            )),
       ),
     );
   }
