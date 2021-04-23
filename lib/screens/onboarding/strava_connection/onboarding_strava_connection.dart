@@ -1,16 +1,11 @@
 import 'package:doarun/states/account_states.dart';
 import 'package:doarun/states/app_states.dart';
-import 'package:doarun/style/color.dart';
 import 'package:doarun/style/text.dart';
-import 'package:doarun/utils/auth.dart';
-import 'package:doarun/utils/local_storage/consts.dart';
-import 'package:doarun/utils/local_storage/local_storage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OnboardingStravaConnection extends StatelessWidget {
   final AppStates appStates = Get.find();
@@ -40,21 +35,20 @@ class OnboardingStravaConnection extends StatelessWidget {
           child: Container(
             width: 150,
             height: 60,
-            decoration: BoxDecoration(
-              color: Colors.orange
-            ),
-            child: Text(
-              "Connect with Strava"
-            ),
+            decoration: BoxDecoration(color: Colors.orange),
+            child: Text("Connect with Strava"),
           ),
         )
-
       ],
     );
   }
 
-  _stravaConnect() {
-
+  _stravaConnect() async {
+    /*
+    final response = await client
+        .post(Uri.parse("https://www.strava.com/oauth/authorize"), headers: {
+          "client_id": "",
+    });
+    print(response.body);*/
   }
-
 }
