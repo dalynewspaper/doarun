@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'color.dart';
-import 'color.dart';
 
 const TextStyle textStyleH1 = TextStyle(
     fontFamily: 'Londrina',
@@ -34,6 +33,12 @@ const TextStyle textStyleGroups = TextStyle(
 
 const TextStyle textStyleButton = TextStyle(
     fontFamily: 'Roboto',
+    color: Colors.black,
+    fontStyle: FontStyle.normal,
+    fontSize: 16);
+
+const TextStyle textStyleStandardWhite = TextStyle(
+    fontFamily: 'Roboto',
     color: Colors.white,
     fontStyle: FontStyle.normal,
     fontSize: 16);
@@ -51,25 +56,17 @@ const TextStyle textStyleTradeMark = TextStyle(
     fontWeight: FontWeight.bold,
     fontSize: 12);
 
-const TextStyle textStyleTitle = TextStyle(
-    fontFamily: 'Bangers',
-    color: Colors.white,
-    fontSize: 32);
+const TextStyle textStyleTitle =
+    TextStyle(fontFamily: 'Bangers', color: Colors.white, fontSize: 32);
 
-const TextStyle textStyleKMNumber = TextStyle(
-    fontFamily: 'Bangers',
-    color: accentColor,
-    fontSize: 24);
+const TextStyle textStyleKMNumber =
+    TextStyle(fontFamily: 'Bangers', color: accentColor, fontSize: 24);
 
-const TextStyle textStyleGroupsTitle = TextStyle(
-    fontFamily: 'Bangers',
-    color: Colors.white,
-    fontSize: 24);
+const TextStyle textStyleGroupsTitle =
+    TextStyle(fontFamily: 'Bangers', color: Colors.white, fontSize: 24);
 
-const TextStyle textStyleUserName = TextStyle(
-    fontFamily: 'Bangers',
-    color: Colors.black,
-    fontSize: 40);
+const TextStyle textStyleUserName =
+    TextStyle(fontFamily: 'Bangers', color: Colors.black, fontSize: 40);
 
 const TextStyle textStyleDistance = TextStyle(
     fontFamily: 'Londrina',
