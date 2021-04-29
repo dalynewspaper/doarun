@@ -31,7 +31,7 @@ class OnboardingStravaConnection extends StatelessWidget {
         ),
         Expanded(child: Container()),
         GestureDetector(
-          onTap: () => _stravaConnect(),
+          onTap: () { _stravaConnect(); },
           child: Container(
             width: 150,
             height: 60,
@@ -48,6 +48,7 @@ class OnboardingStravaConnection extends StatelessWidget {
     final Map result = await API.extern.strava.auth();
     accountStates.account.name.value = result["athlete"]["firstname"];
     accountStates.account.pictureUrl.value = result["athlete"]["profile"];
+    accountStates.account.refreshToken = result["refresh_token"];
     accountStates.account.onboardingStep.value += 1;
     accountStates.updateAccount();
     appStates.loading.value = false;
