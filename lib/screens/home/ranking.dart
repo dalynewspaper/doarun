@@ -15,7 +15,7 @@ class Ranking extends StatelessWidget {
       children: [
         _makeHeaderRanking(context),
         Container(height: 10),
-        _Board(members: ["Brian", "JisJoe", "Cédric", "Jeffson", "Mark"]),
+        _Board(members: []),
         Container(height: 30),
         _AddMemberButton(),
       ],
@@ -45,7 +45,10 @@ class _Board extends StatelessWidget {
                       child: Text((index + 1).toString() + ".",
                           style: textStyleH1Accent)),
                   ProfilePicture(height: 50, width: 50),
-                  Container(width: 50, child: AutoSizeText(members[index], maxLines: 1, style: textStyleNames)),
+                  Container(
+                      width: 50,
+                      child: AutoSizeText(members[index],
+                          maxLines: 1, style: textStyleNames)),
                   Container(width: 75, child: Text("12.5 km")),
                 ],
               ),
@@ -73,9 +76,7 @@ _makeHeaderRanking(context) {
       children: [
         _makeTitle(),
         Positioned(
-            right: 40,
-            child: Text("Total distance", style: textStyleDistance)
-        )
+            right: 40, child: Text("Total distance", style: textStyleDistance))
       ],
     ),
   );
@@ -91,14 +92,11 @@ class _AddMemberButton extends StatelessWidget {
         children: [
           Container(
               decoration: BoxDecoration(
-                color: accentColor,
-                borderRadius: BorderRadius.circular(40)
-              ),
+                  color: accentColor, borderRadius: BorderRadius.circular(40)),
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Icon(Icons.person_add, size: 40, color: Colors.white),
-              )
-          ),
+              )),
         ],
       ),
     );
