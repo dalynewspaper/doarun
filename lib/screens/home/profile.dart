@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:doarun/states/account_states.dart';
 import 'package:doarun/style/color.dart';
 import 'package:doarun/style/text.dart';
 import 'package:doarun/urls.dart';
@@ -9,6 +10,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class Profile extends StatelessWidget {
+  final AccountStates accountStates = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +20,7 @@ class Profile extends StatelessWidget {
         padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
         child: Column(
           children: [
-            ProfilePicture(height: 100, width: 100),
+            ProfilePicture(height: 100, width: 100, pictureUrl: accountStates.account.pictureUrl.value),
             _getUserInfos(),
             SizedBox(height: 50),
             _getRunningGroupsHeader(),
