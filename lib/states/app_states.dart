@@ -1,4 +1,5 @@
 import 'package:doarun/states/account_states.dart';
+import 'package:doarun/states/group_states.dart';
 import 'package:doarun/utils/local_storage/consts.dart';
 import 'package:doarun/utils/local_storage/local_storage.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 class AppStates extends GetxController {
   Future<void> initApp() async {
     final AccountStates accountStates = Get.find();
+    final GroupStates groupStates = Get.find();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -24,6 +26,7 @@ class AppStates extends GetxController {
         localStorage.getStringData(SHARED_PREF_KEY_ACCOUNT_ID);
     if (userToken.isNotEmpty) {
       await accountStates.readAccount(userToken);
+      await groupStates.readGroup(groupId);
     }
     loaded = true;
   }

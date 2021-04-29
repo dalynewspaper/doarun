@@ -1,15 +1,19 @@
 import 'package:doarun/screens/home/group_selector.dart';
 import 'package:doarun/screens/home/ranking.dart';
+import 'package:doarun/states/account_states.dart';
 import 'package:doarun/style/color.dart';
 import 'package:doarun/style/text.dart';
 import 'package:doarun/widgets/profile_picture.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
 import 'latest_run.dart';
 
 class Home extends StatelessWidget {
+  final AccountStates accountStates = Get.find();
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -57,6 +61,7 @@ class Home extends StatelessWidget {
         ProfilePicture(
           height: 50,
           width: 50,
+          pictureUrl: accountStates.account.pictureUrl.value,
         ),
         Container(width: 12),
       ],
