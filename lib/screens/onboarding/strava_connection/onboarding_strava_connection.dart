@@ -16,12 +16,21 @@ class OnboardingStravaConnection extends StatelessWidget {
       children: [
         SvgPicture.asset(
           "assets/doarun.svg",
-          height: 100,
+          height: 50,
         ),
-        Expanded(child: Container()),
-        Text(
-          "You are joining the following running group",
-          style: textStyleH2,
+        Container(height: 70),
+        SvgPicture.asset(
+          "assets/road-loop.svg",
+          height: 130,
+        ),
+        Container(height: 100),
+        Padding(
+          padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+          child: Text(
+            "You are joining the following running group",
+            textAlign: TextAlign.center,
+            style: textStyleH1Grey,
+          ),
         ),
         Expanded(child: Container()),
         Text(
@@ -29,14 +38,18 @@ class OnboardingStravaConnection extends StatelessWidget {
           style: textStyleH2,
         ),
         Expanded(child: Container()),
-        GestureDetector(
-          onTap: () => _stravaConnect(),
-          child: Container(
-            width: 150,
-            height: 60,
-            decoration: BoxDecoration(color: Colors.orange),
-            child: Text("Connect with Strava"),
-          ),
+        TextButton(
+            style: ButtonStyle(
+                shape: MaterialStateProperty.all<OutlinedBorder>(
+                    RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0))),
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.orange)),
+            onPressed: () => _stravaConnect(),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 40.0, top: 10.0, right: 40.0, bottom: 10.0),
+              child: Text("Connect with Strava",
+                  maxLines: 1, style: textStyleBoldWhite),
+            )
         )
       ],
     );

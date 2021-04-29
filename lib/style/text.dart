@@ -17,11 +17,20 @@ const TextStyle textStyleH1Accent = TextStyle(
     fontStyle: FontStyle.normal,
     fontSize: 32);
 
+const TextStyle textStyleH1Grey = TextStyle(
+    fontFamily: 'Londrina',
+    color: Color(0xFF6C6C6C),
+    fontWeight: FontWeight.w400,
+    fontStyle: FontStyle.normal,
+    letterSpacing: 0.26,
+    fontSize: 28);
+
 const TextStyle textStyleH2 = TextStyle(
     fontFamily: 'Londrina',
     color: Colors.black,
     fontWeight: FontWeight.w400,
     fontStyle: FontStyle.normal,
+    letterSpacing: 0.26,
     fontSize: 22);
 
 const TextStyle textStyleGroups = TextStyle(
@@ -41,6 +50,12 @@ const TextStyle textStyleStandardWhite = TextStyle(
     fontFamily: 'Roboto',
     color: Colors.white,
     fontStyle: FontStyle.normal,
+    fontSize: 16);
+
+const TextStyle textStyleBoldWhite = TextStyle(
+    fontFamily: 'Roboto',
+    color: Colors.white,
+    fontWeight: FontWeight.bold,
     fontSize: 16);
 
 const TextStyle textStyleInfos = TextStyle(
