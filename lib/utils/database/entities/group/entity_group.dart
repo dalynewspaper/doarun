@@ -4,10 +4,10 @@ import 'dart:core';
 import 'package:get/get.dart';
 
 class EntityGroup extends GetxController {
-  String name = "";
+  RxString name = "".obs;
   RxString icon = "👟".obs;
   RxDouble targetKm = 0.0.obs;
-  List<String> accounts = [];
+  List accounts = [];
 
   EntityGroup();
 
@@ -29,10 +29,10 @@ class EntityGroup extends GetxController {
 
   bool fromJson(Map<String, dynamic> data, {String key = ""}) {
     if (data == null) return false;
-    this.name = key;
+    this.name.value = key;
     this.icon.value = data["icon"];
     this.targetKm.value = data["targetKm"];
-    this.accounts.addAll(data["accounts"]);
+    this.accounts.assignAll(data["accounts"]);
     return true;
   }
 }
