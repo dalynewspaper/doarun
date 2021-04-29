@@ -67,11 +67,11 @@ class OnboardingAuth extends StatelessWidget {
         accountStates.account.name.value = firebaseUser.displayName;
         accountStates.account.pictureUrl.value = firebaseUser.photoURL;
         await accountStates.createAccount();
+        accountStates.account.onboardingStep.value += 1;
+        accountStates.updateAccount();
       }
       localStorage.setStringData(
           SHARED_PREF_KEY_ACCOUNT_ID, accountStates.account.uid);
-      accountStates.account.onboardingStep.value += 1;
-      accountStates.updateAccount();
       appStates.loading.value = false;
     }
   }
