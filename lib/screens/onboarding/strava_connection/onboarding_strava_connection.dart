@@ -44,10 +44,15 @@ class OnboardingStravaConnection extends StatelessWidget {
   }
 
   _stravaConnect() async {
+    final Uri url =
+        Uri.https('strava.com/oauth/mobile/authorize', '/o/oauth2/v2/auth', {
+      'response_type': 'code',
+      'client_id': "65432",
+      'redirect_uri': 'doarun:/',
+      'scope': 'activity:write,read',
+    });
     final String result = await FlutterWebAuth.authenticate(
-        url:
-            "http://www.strava.com/oauth/authorize?client_id=65432&response_type=code&redirect_uri=doarun://redirect/&approval_prompt=force&scope=read",
-        callbackUrlScheme: "doarun");
+        url: url.toString(), callbackUrlScheme: "doarun.com");
     final String code = Uri.parse(result).queryParameters['code'];
     /*final response = await client
         .post(Uri.parse("https://www.strava.com/oauth/authorize"), headers: {
