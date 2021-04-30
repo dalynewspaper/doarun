@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "40593123332",
+    "project_id": "doarun-beta",
+    "storage_bucket": "doarun-beta.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40593123332:android:e9f9b47eb58ec93d796d51",
+        "android_client_info": {
+          "package_name": "beta.doarun.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40593123332-4i2dioj0k5ocvpka7r3iic82e0qkq9f7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6vcHr2ZztSltFFVIxf3xJyeGmaVQ_LI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40593123332-4i2dioj0k5ocvpka7r3iic82e0qkq9f7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "40593123332-e4njn2uo372q9r7umabnnaiojmvcvccj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "beta.doarun.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
