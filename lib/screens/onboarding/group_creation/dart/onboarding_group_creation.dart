@@ -25,7 +25,7 @@ class OnboardingGroupCreation extends StatelessWidget {
             height: 50,
           ),
           Container(
-            height: 250,
+            height: 300,
             child: Lottie.asset('assets/run-man-run.json',
                 fit: BoxFit.contain, repeat: true),
           ),
@@ -45,7 +45,7 @@ class OnboardingGroupCreation extends StatelessWidget {
                 onboardingStates.isGroupNameFieldValid.value = value.isNotEmpty;
                 groupStates.group.value.name.value = value.trim();
               },
-              hintText: "group name")),
+              hintText: "Group Name")),
           Container(height: 30),
           Align(
             alignment: Alignment.topLeft,
@@ -74,7 +74,7 @@ class OnboardingGroupCreation extends StatelessWidget {
                   }
               },
               hintText: "Type distance in km")),
-          Container(height: 50),
+          Container(height: 70),
           TextButton(
               style: ButtonStyle(
                   shape: MaterialStateProperty.all<OutlinedBorder>(
@@ -104,9 +104,9 @@ class OnboardingGroupCreation extends StatelessWidget {
                 }
               },
               child: Padding(
-                padding: const EdgeInsets.all(10.0),
+                padding: const EdgeInsets.only(left: 40.0, top: 10.0, right: 40.0, bottom: 10.0),
                 child: Text("Create running group".toUpperCase(),
-                    maxLines: 1, style: textStyleStandardWhite),
+                    maxLines: 1, style: textStyleBoldWhite),
               ))
         ],
       ),

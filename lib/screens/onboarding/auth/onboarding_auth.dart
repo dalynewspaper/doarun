@@ -49,7 +49,7 @@ class OnboardingAuth extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(
                   left: 50.0, right: 50, top: 10, bottom: 10),
-              child: Text("Sign-in with google", style: textStyleStandardWhite),
+              child: Text("Sign-in with Google", style: textStyleStandardWhite),
             ))
       ],
     );

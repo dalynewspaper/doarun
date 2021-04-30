@@ -1,5 +1,6 @@
 import 'package:doarun/states/account_states.dart';
 import 'package:doarun/states/app_states.dart';
+import 'package:doarun/states/group_states.dart';
 import 'package:doarun/style/text.dart';
 import 'package:doarun/utils/database/api.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,6 +11,7 @@ import 'package:get/get.dart';
 class OnboardingStravaConnection extends StatelessWidget {
   final AppStates appStates = Get.find();
   final AccountStates accountStates = Get.find();
+  final GroupStates groupStates = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -17,26 +19,35 @@ class OnboardingStravaConnection extends StatelessWidget {
       children: [
         SvgPicture.asset(
           "assets/doarun.svg",
-          height: 100,
+          height: 50,
+        ),
+        Expanded(child: Container()),
+        SvgPicture.asset(
+          "assets/road-loop.svg",
+          height: 130,
+        ),
+        Expanded(child: Container()),
+        Padding(
+          padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+          child: Text(
+            "You are joining the following running group",
+            textAlign: TextAlign.center,
+            style: textStyleH1Grey,
+          ),
         ),
         Expanded(child: Container()),
         Text(
-          "You are joining the following running group",
-          style: textStyleH2,
-        ),
-        Expanded(child: Container()),
-        Text(
-          "...",
+          groupStates.group.name +
+              " - " +
+              groupStates.group.targetKm.value.round().toString() + " km",
           style: textStyleH2,
         ),
         Expanded(child: Container()),
         GestureDetector(
-          onTap: () { _stravaConnect(); },
-          child: Container(
-            width: 150,
-            height: 60,
-            decoration: BoxDecoration(color: Colors.orange),
-            child: Text("Connect with Strava"),
+          onTap: () => _stravaConnect(),
+          child: SvgPicture.asset(
+              "assets/strava-btn.svg",
+              width: MediaQuery.of(context).size.width * 0.6
           ),
         )
       ],
