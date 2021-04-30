@@ -18,8 +18,8 @@ class ProfilePicture extends StatelessWidget {
         Get.toNamed(URL_PROFILE);
       },
       child: Container(
-        height: height,
-        width: width,
+        height: this.height,
+        width: this.width,
         decoration: BoxDecoration(
             image: DecorationImage(image: NetworkImage(pictureUrl)),
             shape: BoxShape.circle,
