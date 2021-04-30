@@ -37,18 +37,17 @@ class OnboardingStravaConnection extends StatelessWidget {
         ),
         Expanded(child: Container()),
         Text(
-          groupStates.group.name +
+          groupStates.group.value.name.value +
               " - " +
-              groupStates.group.targetKm.value.round().toString() + " km",
+              groupStates.group.value.targetKm.value.round().toString() +
+              " km",
           style: textStyleH2,
         ),
         Expanded(child: Container()),
         GestureDetector(
           onTap: () => _stravaConnect(),
-          child: SvgPicture.asset(
-              "assets/strava-btn.svg",
-              width: MediaQuery.of(context).size.width * 0.6
-          ),
+          child: SvgPicture.asset("assets/strava-btn.svg",
+              width: MediaQuery.of(context).size.width * 0.6),
         )
       ],
     );
