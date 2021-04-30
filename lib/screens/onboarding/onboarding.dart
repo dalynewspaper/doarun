@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'auth/onboarding_auth.dart';
-import 'group_creation/dart/onboarding_group_creation.dart';
+import 'group_creation/onboarding_group_creation.dart';
 
 class Onboarding extends StatelessWidget {
   final AccountStates accountStates = Get.find();

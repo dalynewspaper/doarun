@@ -5,8 +5,8 @@ import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:http/http.dart';
 
 class ServiceStrava {
-  final clientId = "65432";
-  final clientSecret = "26c2e44b133cc407cafa410b35bb179bae2fa725";
+  final clientId = "62285";
+  final clientSecret = "604cd72fbccdf35aac78f60ff67d41389751dabc";
 
   //methods
   Future<Map> auth() async {
