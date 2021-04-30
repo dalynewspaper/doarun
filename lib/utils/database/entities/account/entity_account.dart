@@ -10,6 +10,7 @@ class EntityAccount extends GetxController {
   RxString pictureUrl = "".obs;
   double totalDistance = 0.0;
   RxInt onboardingStep = ID_ONBOARDING_STEP_AUTH.obs;
+  String refreshToken = "";
 
   EntityAccount();
 
@@ -23,6 +24,7 @@ class EntityAccount extends GetxController {
       "pictureUrl": this.pictureUrl.value,
       "totalDistance": this.totalDistance,
       "onboardingStep": this.onboardingStep.value,
+      "refreshToken": this.refreshToken,
     };
   }
 
@@ -37,6 +39,7 @@ class EntityAccount extends GetxController {
     this.pictureUrl.value = data["pictureUrl"];
     this.totalDistance = data["totalDistance"];
     this.onboardingStep.value = data["onboardingStep"];
+    this.refreshToken = data["refreshToken"];
     return true;
   }
 }
