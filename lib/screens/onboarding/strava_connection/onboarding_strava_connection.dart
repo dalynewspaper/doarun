@@ -2,6 +2,7 @@ import 'package:doarun/states/account_states.dart';
 import 'package:doarun/states/app_states.dart';
 import 'package:doarun/states/group_states.dart';
 import 'package:doarun/style/text.dart';
+import 'package:doarun/utils/database/api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -54,11 +55,13 @@ class OnboardingStravaConnection extends StatelessWidget {
   }
 
   _stravaConnect() async {
-    /*
-    final response = await client
-        .post(Uri.parse("https://www.strava.com/oauth/authorize"), headers: {
-          "client_id": "",
-    });
-    print(response.body);*/
+    appStates.loading.value = true;
+    final Map result = await API.extern.strava.auth();
+    accountStates.account.name.value = result["athlete"]["firstname"];
+    accountStates.account.pictureUrl.value = result["athlete"]["profile"];
+    accountStates.account.refreshToken = result["refresh_token"];
+    accountStates.account.onboardingStep.value += 1;
+    accountStates.updateAccount();
+    appStates.loading.value = false;
   }
 }

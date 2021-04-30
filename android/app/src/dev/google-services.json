@@ -7,17 +7,17 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:878477674139:android:94387671f3bff8b397a83e",
+        "mobilesdk_app_id": "1:878477674139:android:7515a39f9b07380d97a83e",
         "android_client_info": {
-          "package_name": "doarun.flutter_app"
+          "package_name": "dev.doarun.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "878477674139-a4jag7vvdbh11d4h8me30d9iqtv8lr0t.apps.googleusercontent.com",
+          "client_id": "878477674139-3r6idhdlec49bblbceregfcnlvra0oba.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "doarun.flutter_app",
+            "package_name": "dev.doarun.app",
             "certificate_hash": "09c0a6653a2d2edefa9583d394a833ff5aee2f98"
           }
         },
@@ -37,6 +37,13 @@
             {
               "client_id": "878477674139-8kmu4qlapvpv8n7cd51c7ngp8frq0d03.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "878477674139-ji47ucp8cupmsnb8af840vnv3932dkrn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.doarun.app"
+              }
             }
           ]
         }

@@ -1,5 +1,4 @@
 import 'package:doarun/states/account_states.dart';
-import 'package:doarun/states/app_states.dart';
 import 'package:doarun/states/group_states.dart';
 import 'package:doarun/states/onboarding_states.dart';
 import 'package:doarun/style/color.dart';
@@ -12,7 +11,6 @@ import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 
 class OnboardingGroupCreation extends StatelessWidget {
-  final AppStates appStates = Get.find();
   final AccountStates accountStates = Get.find();
   final GroupStates groupStates = Get.find();
   final OnboardingStates onboardingStates = Get.find();
@@ -45,7 +43,7 @@ class OnboardingGroupCreation extends StatelessWidget {
               textInputType: TextInputType.name,
               onChanged: (String value) {
                 onboardingStates.isGroupNameFieldValid.value = value.isNotEmpty;
-                groupStates.group.name = value.trim();
+                groupStates.group.value.name.value = value.trim();
               },
               hintText: "Group Name")),
           Container(height: 30),
@@ -64,7 +62,8 @@ class OnboardingGroupCreation extends StatelessWidget {
               onChanged: (String value) {
                 if (value.isNotEmpty)
                   try {
-                    groupStates.group.targetKm.value = double.parse(value);
+                    groupStates.group.value.targetKm.value =
+                        double.parse(value);
                     onboardingStates.isKmTargetFieldValid.value = true;
                   } catch (e) {
                     if (!Get.isSnackbarOpen)
@@ -83,24 +82,22 @@ class OnboardingGroupCreation extends StatelessWidget {
                           borderRadius: BorderRadius.circular(10.0))),
                   backgroundColor: MaterialStateProperty.all<Color>(mainColor)),
               onPressed: () async {
-                if (groupStates.group.name.isEmpty ||
-                    groupStates.group.targetKm < 0.1) {
+                if (groupStates.group.value.name.isEmpty ||
+                    groupStates.group.value.targetKm < 0.1) {
                   if (!Get.isSnackbarOpen)
                     Get.snackbar("error", "Missing fields");
                   onboardingStates.isGroupNameFieldValid.value =
-                      groupStates.group.name.isNotEmpty;
+                      groupStates.group.value.name.isNotEmpty;
                   onboardingStates.isKmTargetFieldValid.value =
-                      groupStates.group.targetKm.value > 0.1;
-                  print("1");
+                      groupStates.group.value.targetKm.value > 0.1;
                 } else if (await groupStates
-                    .doesGroupExists(groupStates.group.name)) {
-                  print("2");
+                    .doesGroupExists(groupStates.group.value.name.value)) {
                   if (!Get.isSnackbarOpen)
                     Get.snackbar(
                         "Sorry :(", "This group name is already taken!");
                 } else {
-                  print("3");
-                  groupStates.group.accounts.add(accountStates.account.uid);
+                  groupStates.group.value.accounts
+                      .add(accountStates.account.uid);
                   await groupStates.createGroup();
                   accountStates.account.onboardingStep.value += 1;
                   accountStates.updateAccount();

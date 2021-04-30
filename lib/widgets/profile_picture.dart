@@ -6,8 +6,10 @@ import 'package:get/get.dart';
 class ProfilePicture extends StatelessWidget {
   final double height;
   final double width;
+  final String pictureUrl;
 
-  ProfilePicture({@required this.height, @required this.width});
+  ProfilePicture(
+      {@required this.height, @required this.width, @required this.pictureUrl});
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +18,10 @@ class ProfilePicture extends StatelessWidget {
         Get.toNamed(URL_PROFILE);
       },
       child: Container(
-        height: height,
-        width: width,
+        height: this.height,
+        width: this.width,
         decoration: BoxDecoration(
+            image: DecorationImage(image: NetworkImage(pictureUrl)),
             shape: BoxShape.circle,
             border: Border.all(width: 1.0, color: mainColor)),
       ),
