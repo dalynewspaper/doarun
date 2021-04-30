@@ -47,7 +47,7 @@ class OnboardingGroupCreation extends StatelessWidget {
                 onboardingStates.isGroupNameFieldValid.value = value.isNotEmpty;
                 groupStates.group.name = value.trim();
               },
-              hintText: "group name")),
+              hintText: "Group Name")),
           Container(height: 30),
           Align(
             alignment: Alignment.topLeft,

@@ -1,5 +1,6 @@
 import 'package:doarun/states/account_states.dart';
 import 'package:doarun/states/app_states.dart';
+import 'package:doarun/states/group_states.dart';
 import 'package:doarun/style/text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:get/get.dart';
 class OnboardingStravaConnection extends StatelessWidget {
   final AppStates appStates = Get.find();
   final AccountStates accountStates = Get.find();
+  final GroupStates groupStates = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +20,12 @@ class OnboardingStravaConnection extends StatelessWidget {
           "assets/doarun.svg",
           height: 50,
         ),
-        Container(height: 70),
+        Expanded(child: Container()),
         SvgPicture.asset(
           "assets/road-loop.svg",
           height: 130,
         ),
-        Container(height: 100),
+        Expanded(child: Container()),
         Padding(
           padding: const EdgeInsets.only(left: 20.0, right: 20.0),
           child: Text(
@@ -34,22 +36,18 @@ class OnboardingStravaConnection extends StatelessWidget {
         ),
         Expanded(child: Container()),
         Text(
-          "...",
+          groupStates.group.name +
+              " - " +
+              groupStates.group.targetKm.value.round().toString() + " km",
           style: textStyleH2,
         ),
         Expanded(child: Container()),
-        TextButton(
-            style: ButtonStyle(
-                shape: MaterialStateProperty.all<OutlinedBorder>(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0))),
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.orange)),
-            onPressed: () => _stravaConnect(),
-            child: Padding(
-              padding: const EdgeInsets.only(left: 40.0, top: 10.0, right: 40.0, bottom: 10.0),
-              child: Text("Connect with Strava",
-                  maxLines: 1, style: textStyleBoldWhite),
-            )
+        GestureDetector(
+          onTap: () => _stravaConnect(),
+          child: SvgPicture.asset(
+              "assets/strava-btn.svg",
+              width: MediaQuery.of(context).size.width * 0.6
+          ),
         )
       ],
     );
