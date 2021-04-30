@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:doarun/states/account_states.dart';
+import 'package:doarun/states/group_states.dart';
 import 'package:doarun/style/color.dart';
 import 'package:doarun/style/text.dart';
 import 'package:doarun/urls.dart';
@@ -11,6 +12,7 @@ import 'package:get/get.dart';
 
 class Profile extends StatelessWidget {
   final AccountStates accountStates = Get.find();
+  final GroupStates groupStates = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +64,8 @@ class Profile extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 15.0, bottom: 10.0),
           child: Center(
-              child: AutoSizeText("Brian Daly".toUpperCase(),
+              child: AutoSizeText(
+                  accountStates.account.name.value.toUpperCase(),
                   style: textStyleUserName)),
         ),
         RichText(
@@ -109,10 +112,11 @@ class Profile extends StatelessWidget {
   }
 
   _getRunningGroups() {
-    return ListView(
+    return ListView.builder(
       shrinkWrap: true,
-      children: [
-        Container(
+      itemCount: groupStates.groupsOwned.length,
+      itemBuilder: (BuildContext context, int index) {
+        return Container(
           decoration: BoxDecoration(
             color: Colors.white,
             boxShadow: [
@@ -128,14 +132,20 @@ class Profile extends StatelessWidget {
             padding: const EdgeInsets.all(20.0),
             child: Row(
               children: [
-                AutoSizeText("Grandpal - 10 km", style: textStyleGroups),
+                AutoSizeText(
+                    groupStates.groupsOwned[index].name.value +
+                        " - " +
+                        groupStates.groupsOwned[index].targetKm.value
+                            .toString() +
+                        "km",
+                    style: textStyleGroups),
                 Spacer(),
                 Text("...", style: textStyleGroups)
               ],
             ),
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 
