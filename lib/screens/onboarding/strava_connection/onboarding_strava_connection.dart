@@ -37,9 +37,9 @@ class OnboardingStravaConnection extends StatelessWidget {
         ),
         Expanded(child: Container()),
         Text(
-          groupStates.group.name +
+          groupStates.group.value.name.value +
               " - " +
-              groupStates.group.targetKm.value.round().toString() + " km",
+              groupStates.group.value.targetKm.value.round().toString() + " km",
           style: textStyleH2,
         ),
         Expanded(child: Container()),
