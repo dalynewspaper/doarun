@@ -25,6 +25,37 @@ dependencies:
   firebase_core: ^1.0.3
   http: ^0.13.1
   flutter_web_auth: ^0.3.0
+  flutter_flavorizr: ^2.0.0
+
+flavorizr:
+  app:
+    android:
+      flavorDimensions: "flavor-type"
+    ios:
+
+  flavors:
+    dev:
+      app:
+        name: "Doarun dev"
+
+      android:
+        applicationId: "dev.doarun.app"
+        firebase:
+          config: "android/app/src/dev/google-services.json"
+
+      ios:
+        bundleId: "dev.doarun.app"
+
+    beta:
+      app:
+        name: "Doarun beta"
+
+      android:
+        applicationId: "beta.doarun.app"
+        firebase:
+          config: "android/app/src/beta/google-services.json"
+      ios:
+        bundleId: "beta.doarun.app"
 
 flutter_icons:
   android: "launcher_icon"
