@@ -10,8 +10,6 @@ import 'group_states.dart';
 
 class AppStates extends GetxController {
   Future<void> initApp() async {
-    final AccountStates accountStates = Get.find();
-    final GroupStates groupStates = Get.find();
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
@@ -25,11 +23,15 @@ class AppStates extends GetxController {
     await localStorage.init();
     final String userToken =
         localStorage.getStringData(SHARED_PREF_KEY_ACCOUNT_ID);
-    if (userToken.isNotEmpty) {
-      await accountStates.readAccount(userToken);
-      await groupStates.readAllGroups(accountStates.account.uid);
-    }
+    if (userToken.isNotEmpty) await readUserData(userToken);
     loaded = true;
+  }
+
+  Future<void> readUserData(String userToken) async {
+    final AccountStates accountStates = Get.find();
+    final GroupStates groupStates = Get.find();
+    await accountStates.readAccount(userToken);
+    await groupStates.readAllGroups(accountStates.account.uid);
   }
 
   RxBool loading = false.obs;

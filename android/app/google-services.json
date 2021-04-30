@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "878477674139",
+    "project_id": "doarun-ecf2d",
+    "storage_bucket": "doarun-ecf2d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878477674139:android:7515a39f9b07380d97a83e",
+        "android_client_info": {
+          "package_name": "dev.doarun.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878477674139-3r6idhdlec49bblbceregfcnlvra0oba.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.doarun.app",
+            "certificate_hash": "09c0a6653a2d2edefa9583d394a833ff5aee2f98"
+          }
+        },
+        {
+          "client_id": "878477674139-8kmu4qlapvpv8n7cd51c7ngp8frq0d03.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCYMLlpFs-3-nXIy3g4r8aYsEqm8KCdUa0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878477674139-8kmu4qlapvpv8n7cd51c7ngp8frq0d03.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "878477674139-ji47ucp8cupmsnb8af840vnv3932dkrn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "dev.doarun.app"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

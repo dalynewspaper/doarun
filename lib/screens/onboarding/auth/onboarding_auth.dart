@@ -60,9 +60,9 @@ class OnboardingAuth extends StatelessWidget {
       Get.snackbar("Error", "something went wrong");
     else {
       appStates.loading.value = true;
-      if (await accountStates.doesAccountExists(firebaseUser.uid)) {
-        await accountStates.readAccount(firebaseUser.uid);
-      } else {
+      if (await accountStates.doesAccountExists(firebaseUser.uid))
+        await appStates.readUserData(firebaseUser.uid);
+      else {
         accountStates.account.uid = authService.auth.currentUser.uid;
         accountStates.account.name.value = firebaseUser.displayName;
         accountStates.account.pictureUrl.value = firebaseUser.photoURL;
