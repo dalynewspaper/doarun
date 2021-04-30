@@ -10,7 +10,7 @@ class ServiceGroups extends IService<EntityGroup> {
 
   @override
   Future<void> create(EntityGroup entity, {String key = ""}) async {
-    await _collectionReference.doc(entity.name).set(entity.toMap());
+    await _collectionReference.doc(entity.name.value).set(entity.toMap());
   }
 
   @override
@@ -27,7 +27,8 @@ class ServiceGroups extends IService<EntityGroup> {
 
   @override
   Future<List<EntityGroup>> readAll({String key = ""}) async {
-    QuerySnapshot snap = await _collectionReference.get();
+    QuerySnapshot snap =
+        await _collectionReference.where("accounts", arrayContains: key).get();
 
     List<EntityGroup> entities = <EntityGroup>[];
     snap.docs.forEach((element) {

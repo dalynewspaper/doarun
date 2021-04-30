@@ -1,8 +1,10 @@
 import 'package:doarun/screens/home/group_selector.dart';
 import 'package:doarun/screens/home/ranking.dart';
 import 'package:doarun/states/account_states.dart';
+import 'package:doarun/states/group_states.dart';
 import 'package:doarun/style/color.dart';
 import 'package:doarun/style/text.dart';
+import 'package:doarun/utils/database/entities/group/entity_group.dart';
 import 'package:doarun/widgets/profile_picture.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,7 @@ import 'latest_run.dart';
 
 class Home extends StatelessWidget {
   final AccountStates accountStates = Get.find();
+  final GroupStates groupStates = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -30,11 +33,12 @@ class Home extends StatelessWidget {
                 Stack(
                   children: [
                     GroupSelector(),
-                    targetIndicator(context),
+                    Obx(() =>
+                        getTargetIndicator(context, groupStates.group.value)),
                   ],
                 ),
                 Container(height: 30),
-                Ranking(),
+                Obx(() => Ranking(group: groupStates.group.value)),
                 Container(height: 35),
                 LatestRun(),
               ],
@@ -68,7 +72,7 @@ class Home extends StatelessWidget {
     );
   }
 
-  targetIndicator(context) {
+  Widget getTargetIndicator(context, EntityGroup group) {
     return Padding(
       padding: const EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
       child: Column(
@@ -76,7 +80,8 @@ class Home extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Text("10 KM", style: textStyleKMNumber),
+              Text(group.targetKm.value.toString() + " KM",
+                  style: textStyleKMNumber),
               Container(width: 10),
               SvgPicture.asset(
                 "assets/target.svg",
