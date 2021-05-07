@@ -55,10 +55,15 @@ class OnboardingStravaConnection extends StatelessWidget {
 
   _stravaConnect() async {
     appStates.loading.value = true;
-    final Map result = await API.extern.strava.auth();
-    accountStates.account.name.value = result["athlete"]["firstname"];
-    accountStates.account.pictureUrl.value = result["athlete"]["profile"];
-    accountStates.account.refreshToken = result["refresh_token"];
+    final Map authResult = await API.extern.strava.auth();
+    accountStates.account.name.value = authResult["athlete"]["firstname"];
+    accountStates.account.pictureUrl.value = authResult["athlete"]["profile"];
+    accountStates.account.refreshToken = authResult["refresh_token"];
+    accountStates.account.stravaId = authResult["athlete"]["id"];
+    final Map statsResult = await API.extern.strava.getAthleteStats(
+        accountStates.account.stravaId, authResult["access_token"]);
+    accountStates.account.totalDistance =
+        statsResult["recent_run_totals"]["distance"];
     accountStates.account.onboardingStep.value += 1;
     accountStates.updateAccount();
     appStates.loading.value = false;

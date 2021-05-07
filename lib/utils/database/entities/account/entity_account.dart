@@ -11,6 +11,7 @@ class EntityAccount extends GetxController {
   double totalDistance = 0.0;
   RxInt onboardingStep = ID_ONBOARDING_STEP_AUTH.obs;
   String refreshToken = "";
+  int stravaId = -1;
 
   EntityAccount();
 
@@ -25,6 +26,7 @@ class EntityAccount extends GetxController {
       "totalDistance": this.totalDistance,
       "onboardingStep": this.onboardingStep.value,
       "refreshToken": this.refreshToken,
+      "stravaId": this.stravaId,
     };
   }
 
@@ -40,6 +42,7 @@ class EntityAccount extends GetxController {
     this.totalDistance = data["totalDistance"];
     this.onboardingStep.value = data["onboardingStep"];
     this.refreshToken = data["refreshToken"];
+    this.stravaId = data["stravaId"];
     return true;
   }
 }
