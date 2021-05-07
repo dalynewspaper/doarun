@@ -65,10 +65,12 @@ class _Board extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    members.sort((a, b) => b.totalDistance.compareTo(a.totalDistance));
     return ListView.builder(
         shrinkWrap: true,
         itemCount: members.length,
         itemBuilder: (context, index) {
+          print(members[index].pictureUrl.value);
           return Column(
             children: [
               Container(height: 10),
@@ -87,7 +89,10 @@ class _Board extends StatelessWidget {
                       width: 50,
                       child: AutoSizeText(members[index].name.value,
                           maxLines: 1, style: textStyleNames)),
-                  Container(width: 75, child: Text("12.5 km")),
+                  Container(
+                      width: 75,
+                      child:
+                          Text(members[index].totalDistance.toString() + "km")),
                 ],
               ),
             ],

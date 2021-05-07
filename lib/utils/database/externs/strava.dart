@@ -28,4 +28,13 @@ class ServiceStrava {
     });
     return json.decode(response.body);
   }
+
+  Future<Map> getAthleteStats(int stravaId, String accessToken) async {
+    final Response response = await client.get(
+        Uri.parse("https://www.strava.com/api/v3/athletes/" +
+            stravaId.toString() +
+            "/stats"),
+        headers: {"Authorization": "Bearer $accessToken"});
+    return json.decode(response.body);
+  }
 }
