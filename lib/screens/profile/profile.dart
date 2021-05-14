@@ -103,7 +103,9 @@ class Profile extends StatelessWidget {
                   iconSize: 19,
                   icon: Icon(Icons.add),
                   color: Colors.white,
-                  onPressed: () {}),
+                  onPressed: () {
+                    Get.toNamed(URL_GROUP_CREATION);
+                  }),
             ),
           ],
         ),

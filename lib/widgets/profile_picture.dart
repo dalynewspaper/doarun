@@ -15,7 +15,7 @@ class ProfilePicture extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(URL_PROFILE);
+        Get.offNamed(URL_PROFILE);
       },
       child: Container(
         height: this.height,
