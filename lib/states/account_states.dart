@@ -10,6 +10,18 @@ class AccountStates extends GetxController {
     return await API.entries.accounts.isExist(accountId);
   }
 
+  Future<bool> getNewTotalDistance() async {
+    final Map refreshTokenResponse =
+        await API.extern.strava.getAccessToken(account.refreshToken);
+    account.refreshToken = refreshTokenResponse["refresh_token"];
+    final Map athleteStatsResponse = await API.extern.strava.getAthleteStats(
+        account.stravaId, refreshTokenResponse["access_token"]);
+    account.totalDistance =
+        athleteStatsResponse["recent_ride_totals"]["distance"];
+    updateAccount();
+    return true;
+  }
+
   // CRUD
 
   Future<void> createAccount() async {

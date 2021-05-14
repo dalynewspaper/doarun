@@ -5,6 +5,7 @@ import 'package:doarun/states/group_states.dart';
 import 'package:doarun/style/color.dart';
 import 'package:doarun/style/text.dart';
 import 'package:doarun/utils/database/entities/group/entity_group.dart';
+import 'package:doarun/widgets/loading.dart';
 import 'package:doarun/widgets/profile_picture.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,38 +14,57 @@ import 'package:get/get.dart';
 
 import 'latest_run.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _Home();
+}
+
+class _Home extends State<Home> {
   final AccountStates accountStates = Get.find();
   final GroupStates groupStates = Get.find();
+  Future _future;
+
+  @override
+  void initState() {
+    _future = accountStates.getNewTotalDistance();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        return true;
-      },
-      child: Scaffold(
-          appBar: getHomeAppBar(),
-          body: Padding(
-            padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-            child: ListView(
-              shrinkWrap: true,
-              children: [
-                Stack(
-                  children: [
-                    GroupSelector(),
-                    Obx(() =>
-                        getTargetIndicator(context, groupStates.group.value)),
-                  ],
-                ),
-                Container(height: 30),
-                Obx(() => Ranking(group: groupStates.group.value)),
-                Container(height: 35),
-                LatestRun(),
-              ],
-            ),
-          )),
-    );
+    return FutureBuilder(
+        future: _future,
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.hasData)
+            return WillPopScope(
+              onWillPop: () async {
+                return true;
+              },
+              child: Scaffold(
+                  appBar: getHomeAppBar(),
+                  body: Padding(
+                    padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: [
+                        Stack(
+                          children: [
+                            GroupSelector(),
+                            Obx(() => getTargetIndicator(
+                                context, groupStates.group.value)),
+                          ],
+                        ),
+                        Container(height: 30),
+                        Obx(() => Ranking(group: groupStates.group.value)),
+                        Container(height: 35),
+                        LatestRun(),
+                      ],
+                    ),
+                  )),
+            );
+          else
+            return Loading();
+        });
   }
 
   AppBar getHomeAppBar() {
