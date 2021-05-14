@@ -10,6 +10,7 @@ import 'package:doarun/widgets/profile_picture.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../style/color.dart';
 
@@ -47,7 +48,14 @@ class _Ranking extends State<Ranking> {
               children: [
                 _makeHeaderRanking(context),
                 Container(height: 10),
+                isNobody(groupStates.groupAccounts)
+                    ? _getNobodyRan()
+                    : Container(),
                 _Board(members: groupStates.groupAccounts),
+                SizedBox(height: 30),
+                groupStates.groupAccounts.length <= 1
+                    ? _getInvite()
+                    : Container(),
                 Container(height: 30),
                 _AddMemberButton(),
               ],
@@ -55,6 +63,49 @@ class _Ranking extends State<Ranking> {
           else
             return Loading();
         });
+  }
+
+  bool isNobody(List<EntityAccount> members) {
+    bool ret = true;
+    members.forEach((EntityAccount element) {
+      if (element.totalDistance > 0) {
+        ret = false;
+        return;
+      }
+    });
+    return ret;
+  }
+
+  _getNobodyRan() {
+    return Center(
+      child: Column(children: [
+        Text(
+          "😴",
+          style: TextStyle(fontSize: 30),
+        ),
+        SizedBox(height: 5),
+        Text("Nobody has ran this week!", style: textStyleInfos),
+        SizedBox(height: 30)
+      ]),
+    );
+  }
+
+  Widget _getInvite() {
+    return Center(
+        child: Column(
+      children: [
+        Lottie.asset("assets/runner.json",
+            fit: BoxFit.contain, repeat: true, height: 200),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "Looks like you are on your own in here. Invite some friends to join you !",
+            style: textStyleKMNumber,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+    ));
   }
 }
 
@@ -72,31 +123,31 @@ class _Board extends StatelessWidget {
         itemBuilder: (context, index) {
           return Column(
             children: [
-              Container(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                      width: 25,
-                      child: Text((index + 1).toString() + ".",
-                          style: textStyleH1Accent)),
-                  ProfilePicture(
-                      height: 50,
-                      width: 50,
-                      pictureUrl: members[index].pictureUrl.value),
-                  Container(
-                      width: 50,
-                      child: AutoSizeText(members[index].name.value,
-                          maxLines: 1, style: textStyleNames)),
-                  Container(
-                      width: 75,
-                      child:
-                          Text(members[index].totalDistance.toString() + "km")),
-                ],
-              ),
+              _getList(index),
             ],
           );
         });
+  }
+
+  Row _getList(int index) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        Container(
+            width: 25,
+            child:
+                Text((index + 1).toString() + ".", style: textStyleH1Accent)),
+        ProfilePicture(
+            height: 50, width: 50, pictureUrl: members[index].pictureUrl.value),
+        Container(
+            width: 50,
+            child: AutoSizeText(members[index].name.value,
+                maxLines: 1, style: textStyleNames)),
+        Container(
+            width: 75,
+            child: Text(members[index].totalDistance.toString() + "km")),
+      ],
+    );
   }
 }
 
