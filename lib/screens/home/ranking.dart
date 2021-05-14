@@ -94,7 +94,7 @@ class _Ranking extends State<Ranking> {
           Container(
               width: 200,
               height: 200,
-              child: SvgPicture.asset("assets/invite.svg")),
+              child: Image.asset("assets/invite.png")),
           Center(
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
