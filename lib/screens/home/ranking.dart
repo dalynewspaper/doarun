@@ -10,6 +10,7 @@ import 'package:doarun/widgets/profile_picture.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../style/color.dart';
 
@@ -91,13 +92,19 @@ class _Ranking extends State<Ranking> {
 
   Widget _getInvite() {
     return Center(
-        child: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Text(
-        "Looks like you are on your own in here. Invite some friends to join you !",
-        style: textStyleKMNumber,
-        textAlign: TextAlign.center,
-      ),
+        child: Column(
+      children: [
+        Lottie.asset("assets/runner.json",
+            fit: BoxFit.contain, repeat: true, height: 200),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "Looks like you are on your own in here. Invite some friends to join you !",
+            style: textStyleKMNumber,
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
     ));
   }
 }
