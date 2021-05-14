@@ -30,10 +30,10 @@ class Profile extends StatelessWidget {
               SizedBox(height: 50),
               _getRunningGroupsHeader(),
               SizedBox(height: 20),
-              _getRunningGroups(),
+              _getRunningGroups(context),
               Spacer(),
               _getLogOut(),
-              _getTradeMark(),
+              _getTradeMark()
             ],
           ),
         ));
@@ -43,14 +43,13 @@ class Profile extends StatelessWidget {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0.0,
-      leading: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GestureDetector(
-          onTap: () => Get.toNamed(URL_HOME),
-          child: SvgPicture.asset(
-            "assets/doarun.svg",
-            fit: BoxFit.contain,
-          ),
+      centerTitle: true,
+      title: GestureDetector(
+        onTap: () => Get.toNamed(URL_HOME),
+        child: SvgPicture.asset(
+          "assets/doarun.svg",
+          fit: BoxFit.contain,
+          height: 50,
         ),
       ),
     );
@@ -111,41 +110,44 @@ class Profile extends StatelessWidget {
     );
   }
 
-  _getRunningGroups() {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: groupStates.groupsOwned.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 1,
-                blurRadius: 4,
-                offset: Offset(0, 4),
-              ),
-            ],
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
-              children: [
-                AutoSizeText(
-                    groupStates.groupsOwned[index].name.value +
-                        " - " +
-                        groupStates.groupsOwned[index].targetKm.value
-                            .toString() +
-                        "km",
-                    style: textStyleGroups),
-                Spacer(),
-                Text("...", style: textStyleGroups)
+  _getRunningGroups(context) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.35,
+      child: ListView.builder(
+        shrinkWrap: true,
+        itemCount: groupStates.groupsOwned.length,
+        itemBuilder: (BuildContext context, int index) {
+          return Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 1,
+                  blurRadius: 4,
+                  offset: Offset(0, 4),
+                ),
               ],
             ),
-          ),
-        );
-      },
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                children: [
+                  AutoSizeText(
+                      groupStates.groupsOwned[index].name.value +
+                          " - " +
+                          groupStates.groupsOwned[index].targetKm.value
+                              .toString() +
+                          "km",
+                      style: textStyleGroups),
+                  Spacer(),
+                  Text("...", style: textStyleGroups)
+                ],
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 
