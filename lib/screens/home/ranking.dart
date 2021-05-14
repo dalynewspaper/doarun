@@ -9,7 +9,6 @@ import 'package:doarun/widgets/loading.dart';
 import 'package:doarun/widgets/profile_picture.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../style/color.dart';
@@ -48,9 +47,14 @@ class _Ranking extends State<Ranking> {
               children: [
                 _makeHeaderRanking(context),
                 Container(height: 10),
-                isNobody(groupStates.groupAccounts) ? _getNobodyRan() : Container(),
+                isNobody(groupStates.groupAccounts)
+                    ? _getNobodyRan()
+                    : Container(),
                 _Board(members: groupStates.groupAccounts),
-                groupStates.groupAccounts.length <= 1 ? _getInvite() : Container(),
+                SizedBox(height: 30),
+                groupStates.groupAccounts.length <= 1
+                    ? _getInvite()
+                    : Container(),
                 Container(height: 30),
                 _AddMemberButton(),
               ],
@@ -85,29 +89,17 @@ class _Ranking extends State<Ranking> {
     );
   }
 
-  Column _getInvite() {
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(height: 40),
-          Container(
-              width: 200,
-              height: 200,
-              child: Image.asset("assets/invite.png")),
-          Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Looks like you are on your own in here. Invite some friends to join you !",
-                  style: textStyleKMNumber,
-                  textAlign: TextAlign.center,
-                ),
-              ))
-        ]);
+  Widget _getInvite() {
+    return Center(
+        child: Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Text(
+        "Looks like you are on your own in here. Invite some friends to join you !",
+        style: textStyleKMNumber,
+        textAlign: TextAlign.center,
+      ),
+    ));
   }
-
-
 }
 
 class _Board extends StatelessWidget {
