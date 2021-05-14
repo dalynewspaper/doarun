@@ -43,12 +43,10 @@ class Profile extends StatelessWidget {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0.0,
-      leading: Container(),
-      title: GestureDetector(
-        onTap: () => Get.toNamed(URL_HOME),
-        child: Container(
-          height: 50,
-          width: 50,
+      leading: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: GestureDetector(
+          onTap: () => Get.toNamed(URL_HOME),
           child: SvgPicture.asset(
             "assets/doarun.svg",
             fit: BoxFit.contain,
