@@ -1,5 +1,6 @@
 import 'package:doarun/redirections.dart';
-import 'package:doarun/screens/home/profile.dart';
+import 'package:doarun/screens/profile/create_group/create_group.dart';
+import 'package:doarun/screens/profile/profile.dart';
 import 'package:doarun/states/states_binding.dart';
 import 'package:doarun/urls.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,7 +39,10 @@ class MyApp extends StatelessWidget {
           name: URL_PROFILE,
           page: () => Profile(),
         ),
-//        GetPage(name: URL_GROCERY_LIST_OPTION, page: () => GroceryListOption()),
+        GetPage(
+          name: URL_GROUP_CREATION,
+          page: () => CreateGroup(),
+        ),
       ],
     );
   }

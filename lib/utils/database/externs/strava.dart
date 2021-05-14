@@ -29,6 +29,17 @@ class ServiceStrava {
     return json.decode(response.body);
   }
 
+  Future<Map> getAccessToken(String refreshToken) async {
+    final Response response = await client
+        .post(Uri.parse("https://www.strava.com/oauth/token"), body: {
+      "client_id": clientId,
+      "client_secret": clientSecret,
+      "grant_type": "refresh_token",
+      "refresh_token": refreshToken,
+    });
+    return json.decode(response.body);
+  }
+
   Future<Map> getAthleteStats(int stravaId, String accessToken) async {
     final Response response = await client.get(
         Uri.parse("https://www.strava.com/api/v3/athletes/" +

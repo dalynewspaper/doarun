@@ -122,7 +122,6 @@ class _Board extends StatelessWidget {
         shrinkWrap: true,
         itemCount: members.length,
         itemBuilder: (context, index) {
-          print(members[index].pictureUrl.value);
           return Column(
             children: [
               _getList(index),
