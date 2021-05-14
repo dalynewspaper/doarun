@@ -16,10 +16,9 @@ class AccountStates extends GetxController {
     account.refreshToken = refreshTokenResponse["refresh_token"];
     final Map athleteStatsResponse = await API.extern.strava.getAthleteStats(
         account.stravaId, refreshTokenResponse["access_token"]);
-    print(athleteStatsResponse);
     account.totalDistance =
         athleteStatsResponse["recent_run_totals"]["distance"] / 1000;
-    await updateAccount();
+    updateAccount();
     return true;
   }
 
