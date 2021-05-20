@@ -33,7 +33,7 @@ class _Ranking extends State<Ranking> {
 
   @override
   initState() {
-    futureGroupUsers = groupStates.readAllAccounts(group.name.value);
+    futureGroupUsers = groupStates.readAllAccounts();
     super.initState();
   }
 

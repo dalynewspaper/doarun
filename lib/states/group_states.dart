@@ -12,6 +12,19 @@ class GroupStates extends GetxController {
     return await API.entries.groups.doesExist(groupName);
   }
 
+  Future<void> readAllGroups(String accountId) async {
+    groupsOwned.assignAll(await API.entries.groups.readAll(key: accountId));
+    group.value = groupsOwned.first;
+  }
+
+  Future<bool> readAllAccounts() async {
+    groupAccounts.clear();
+    await Future.forEach(group.value.accounts, (accountUid) async {
+      groupAccounts.add(await API.entries.accounts.read(accountUid));
+    });
+    return true;
+  }
+
   // CRUD
 
   Future<void> createGroup() async {
@@ -29,18 +42,5 @@ class GroupStates extends GetxController {
 
   void deleteGroup(String groupName) {
     API.entries.groups.delete(groupName);
-  }
-
-  Future<void> readAllGroups(String accountId) async {
-    groupsOwned.assignAll(await API.entries.groups.readAll(key: accountId));
-    group.value = groupsOwned.first;
-  }
-
-  Future<bool> readAllAccounts(String accountId) async {
-    groupAccounts.clear();
-    await Future.forEach(group.value.accounts, (accountUid) async {
-      groupAccounts.add(await API.entries.accounts.read(accountUid));
-    });
-    return true;
   }
 }
