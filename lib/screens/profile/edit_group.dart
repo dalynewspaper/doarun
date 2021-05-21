@@ -6,6 +6,7 @@ import 'package:doarun/style/input.dart';
 import 'package:doarun/style/text.dart';
 import 'package:doarun/utils/database/entities/account/entity_account.dart';
 import 'package:doarun/widgets/loading.dart';
+import 'package:doarun/widgets/profile_picture.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,50 +48,53 @@ class _EditGroup extends State<EditGroup> {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          shrinkWrap: true,
-          children: [
-            Container(
-              height: 100,
-              width: 100,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(width: 1.0, color: mainColor)),
-              child: Center(
-                  child: Text(
-                groupStates.group.value.icon.value,
-                style: TextStyle(fontSize: 30),
-              )),
-            ),
-            SizedBox(height: 35),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                "Running group name",
-                style: textStyleButton,
+      body: ListView(
+        shrinkWrap: true,
+        children: [
+          Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(width: 2.0, color: mainColor)),
+            child: Center(
+                child: Text(
+              groupStates.group.value.icon.value,
+              style: TextStyle(fontSize: 30),
+            )),
+          ),
+          SizedBox(height: 35),
+          Align(
+            alignment: Alignment.center,
+            child: Container(
+              width: MediaQuery.of(context).size.width / 2,
+              child: StandardInput(
+                  errorStr: null,
+                  textInputType: TextInputType.name,
+                  value: groupStates.group.value.name.value,
+                  onChanged: (String value) {
+                    groupStates.group.value.name.value = value;
+                  },
+                  hintText: "Group name",
+                  isCenter: true
               ),
             ),
-            Container(height: 20),
-            StandardInput(
-                errorStr: null,
-                textInputType: TextInputType.name,
-                value: groupStates.group.value.name.value,
-                onChanged: (String value) {
-                  groupStates.group.value.name.value = value;
-                },
-                hintText: "Group name"),
-            SizedBox(height: 35),
-            Align(
-              alignment: Alignment.topLeft,
+          ),
+          SizedBox(height: 45),
+          Container(
+            color: mainColor,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 15.0, top: 20.0, bottom: 20.0),
               child: Text(
                 "Running goal",
-                style: textStyleButton,
+                style: textStyleGroupsTitle,
               ),
             ),
-            Container(height: 20),
-            StandardInput(
+          ),
+          SizedBox(height: 15),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: StandardInput(
                 errorStr: null,
                 textInputType: TextInputType.number,
                 value: groupStates.group.value.targetKm.value.toString(),
@@ -106,16 +110,22 @@ class _EditGroup extends State<EditGroup> {
                     }
                 },
                 hintText: "Group name"),
-            SizedBox(height: 35),
-            Align(
-              alignment: Alignment.topLeft,
+          ),
+          SizedBox(height: 15),
+          Container(
+            color: mainColor,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 15.0, top: 20.0, bottom: 20.0),
               child: Text(
                 "Members",
-                style: textStyleButton,
+                style: textStyleGroupsTitle,
               ),
             ),
-            SizedBox(height: 15),
-            FutureBuilder(
+          ),
+          SizedBox(height: 15),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: FutureBuilder(
                 future: _futureMembers,
                 builder: (BuildContext context, data) {
                   if (data.hasError) print(data.error);
@@ -125,36 +135,39 @@ class _EditGroup extends State<EditGroup> {
                         shrinkWrap: true,
                         itemCount: groupStates.groupAccounts.length,
                         itemBuilder: (BuildContext context, int i) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Colors.black, width: 0.3)),
-                            height: 50,
-                            child: Row(
-                              children: [
-                                Text(groupStates.groupAccounts[i].name.value),
-                                Spacer(),
-                                accountStates.account.uid ==
-                                            groupStates.group.value.owner &&
-                                        accountStates.account.uid !=
-                                            groupStates.groupAccounts[i].uid
-                                    ? GestureDetector(
-                                        onTap: () => showPopUpComingSoon(
-                                            context,
-                                            groupStates.groupAccounts[i]),
-                                        child: Icon(Icons.close),
-                                      )
-                                    : Container()
-                              ],
-                            ),
+                          return Row(
+                            children: [
+                              ProfilePicture(
+                                  height: 50, width: 50, pictureUrl: groupStates.groupAccounts[i].pictureUrl.value),
+                              SizedBox(width: 35),
+                              Container(
+                                  child: AutoSizeText(
+                                      groupStates.groupAccounts[i].name.value,
+                                      maxLines: 1,
+                                      style: textStyleNames
+                                  )
+                              ),
+                              Spacer(),
+                              accountStates.account.uid ==
+                                          groupStates.group.value.owner &&
+                                      accountStates.account.uid !=
+                                          groupStates.groupAccounts[i].uid
+                                  ? GestureDetector(
+                                      onTap: () => showPopUpComingSoon(
+                                          context,
+                                          groupStates.groupAccounts[i]),
+                                      child: Icon(Icons.close),
+                                    )
+                                  : Container()
+                            ],
                           );
                         });
                   else
                     return Loading();
                 }),
-            Container(height: 20),
-          ],
-        ),
+          ),
+          Container(height: 20),
+        ],
       ),
     );
   }
