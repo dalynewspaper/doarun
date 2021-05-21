@@ -145,7 +145,8 @@ class _Board extends StatelessWidget {
                 maxLines: 1, style: textStyleNames)),
         Container(
             width: 75,
-            child: Text(members[index].totalDistance.toString() + "km")),
+            child:
+                Text(members[index].totalDistance.toStringAsFixed(3) + "km")),
       ],
     );
   }

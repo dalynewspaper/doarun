@@ -8,6 +8,7 @@ import 'package:doarun/utils/database/entities/group/entity_group.dart';
 import 'package:doarun/widgets/profile_picture.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class Profile extends StatelessWidget {
@@ -33,7 +34,7 @@ class Profile extends StatelessWidget {
               _getRunningGroups(context),
               Spacer(),
               _getLogOut(),
-              _getTradeMark(),
+              _getTradeMark()
             ],
           ),
         ));
@@ -43,14 +44,13 @@ class Profile extends StatelessWidget {
     return AppBar(
       backgroundColor: Colors.transparent,
       elevation: 0.0,
-      leading: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GestureDetector(
-          onTap: () => Get.toNamed(URL_HOME),
-          child: Icon(
-            Icons.arrow_back,
-            color: mainColor,
-          ),
+      centerTitle: true,
+      title: GestureDetector(
+        onTap: () => Get.toNamed(URL_HOME),
+        child: SvgPicture.asset(
+          "assets/doarun.svg",
+          fit: BoxFit.contain,
+          height: 50,
         ),
       ),
     );
@@ -114,35 +114,34 @@ class Profile extends StatelessWidget {
 
   _getRunningGroups(BuildContext context) {
     return ListView.builder(
-      shrinkWrap: true,
-      itemCount: groupStates.groupsOwned.length,
-      itemBuilder: (BuildContext context, int index) {
-        return OutlinedButton(
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.white)),
-          onPressed: () {
-            groupStates.group.value = groupStates.groupsOwned[index];
-            Get.toNamed(URL_GROUP_EDITION);
-          },
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
-              children: [
-                AutoSizeText(
-                    groupStates.groupsOwned[index].name.value +
-                        " - " +
-                        groupStates.groupsOwned[index].targetKm.value
-                            .toString() +
-                        "km",
-                    style: textStyleGroups),
-                Spacer(),
-                AutoSizeText(groupStates.groupsOwned[index].icon.value)
-              ],
-            ),
-          ),
-        );
-      },
-    );
+        shrinkWrap: true,
+        itemCount: groupStates.groupsOwned.length,
+        itemBuilder: (BuildContext context, int index) {
+          return OutlinedButton(
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white)),
+              onPressed: () {
+                groupStates.group.value = groupStates.groupsOwned[index];
+                Get.toNamed(URL_GROUP_EDITION);
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  children: [
+                    AutoSizeText(
+                        groupStates.groupsOwned[index].name.value +
+                            " - " +
+                            groupStates.groupsOwned[index].targetKm.value
+                                .toString() +
+                            "km",
+                        style: textStyleGroups),
+                    Spacer(),
+                    AutoSizeText(groupStates.groupsOwned[index].icon.value)
+                  ],
+                ),
+              ));
+        });
   }
 
   _getLogOut() {
