@@ -28,8 +28,10 @@ class GroupSelector extends StatelessWidget {
                 underline: Container(),
                 iconSize: 35,
                 style: textStyleH2,
-                onChanged: (String newValue) {
-                  groupStates.readGroup(newValue);
+                onChanged: (String newValue) async {
+                  groupStates.group.value = groupStates.groupsOwned
+                      .where((element) => element.name.value == newValue)
+                      .first;
                 },
                 items: groupStates.groupsOwned
                     .map((e) => e.name.value)

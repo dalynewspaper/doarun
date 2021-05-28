@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class GroupStates extends GetxController {
   Rx<EntityGroup> group = EntityGroup().obs;
   List<EntityGroup> groupsOwned = <EntityGroup>[];
-  List<EntityAccount> groupAccounts = <EntityAccount>[];
+  RxList<EntityAccount> groupAccounts = <EntityAccount>[].obs;
 
   Future<bool> doesGroupExists(String groupName) async {
     return await API.entries.groups.doesExist(groupName);

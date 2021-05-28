@@ -5,26 +5,13 @@ import 'package:doarun/style/color.dart';
 import 'package:doarun/style/input.dart';
 import 'package:doarun/style/text.dart';
 import 'package:doarun/utils/database/entities/account/entity_account.dart';
-import 'package:doarun/widgets/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class EditGroup extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _EditGroup();
-}
-
-class _EditGroup extends State<EditGroup> {
+class EditGroup extends StatelessWidget {
   final GroupStates groupStates = Get.find();
   final AccountStates accountStates = Get.find();
-  Future _futureMembers;
-
-  @override
-  void initState() {
-    _futureMembers = groupStates.readAllAccounts();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,52 +94,6 @@ class _EditGroup extends State<EditGroup> {
                 },
                 hintText: "Group name"),
             SizedBox(height: 35),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                "Members",
-                style: textStyleButton,
-              ),
-            ),
-            SizedBox(height: 15),
-            FutureBuilder(
-                future: _futureMembers,
-                builder: (BuildContext context, data) {
-                  if (data.hasError) print(data.error);
-                  if (data.hasData)
-                    return ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: groupStates.groupAccounts.length,
-                        itemBuilder: (BuildContext context, int i) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                border: Border.all(
-                                    color: Colors.black, width: 0.3)),
-                            height: 50,
-                            child: Row(
-                              children: [
-                                Text(groupStates.groupAccounts[i].name.value),
-                                Spacer(),
-                                accountStates.account.uid ==
-                                            groupStates.group.value.owner &&
-                                        accountStates.account.uid !=
-                                            groupStates.groupAccounts[i].uid
-                                    ? GestureDetector(
-                                        onTap: () => showPopUpComingSoon(
-                                            context,
-                                            groupStates.groupAccounts[i]),
-                                        child: Icon(Icons.close),
-                                      )
-                                    : Container()
-                              ],
-                            ),
-                          );
-                        });
-                  else
-                    return Loading();
-                }),
-            Container(height: 20),
           ],
         ),
       ),
