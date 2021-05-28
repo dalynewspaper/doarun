@@ -34,50 +34,53 @@ class EditGroup extends StatelessWidget {
           ),
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          shrinkWrap: true,
-          children: [
-            Container(
-              height: 100,
-              width: 100,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(width: 1.0, color: mainColor)),
-              child: Center(
-                  child: Text(
-                groupStates.group.value.icon.value,
-                style: TextStyle(fontSize: 30),
-              )),
+      body: ListView(
+        shrinkWrap: true,
+        children: [
+          Container(
+            height: 100,
+            width: 100,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(width: 2.0, color: mainColor)),
+            child: Center(
+                child: Text(
+              groupStates.group.value.icon.value,
+              style: TextStyle(fontSize: 30),
+            )),
+          ),
+          SizedBox(height: 35),
+          Align(
+            alignment: Alignment.center,
+            child: Container(
+              width: MediaQuery.of(context).size.width / 2,
+              child: StandardInput(
+                  errorStr: null,
+                  textInputType: TextInputType.name,
+                  value: groupStates.group.value.name.value,
+                  onChanged: (String value) {
+                    groupStates.group.value.name.value = value;
+                  },
+                  hintText: "Group name",
+                  isCenter: true),
             ),
-            SizedBox(height: 35),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                "Running group name",
-                style: textStyleButton,
-              ),
-            ),
-            Container(height: 20),
-            StandardInput(
-                errorStr: null,
-                textInputType: TextInputType.name,
-                value: groupStates.group.value.name.value,
-                onChanged: (String value) {
-                  groupStates.group.value.name.value = value;
-                },
-                hintText: "Group name"),
-            SizedBox(height: 35),
-            Align(
-              alignment: Alignment.topLeft,
+          ),
+          SizedBox(height: 45),
+          Container(
+            color: mainColor,
+            child: Padding(
+              padding:
+                  const EdgeInsets.only(left: 15.0, top: 20.0, bottom: 20.0),
               child: Text(
                 "Running goal",
-                style: textStyleButton,
+                style: textStyleGroupsTitle,
               ),
             ),
-            Container(height: 20),
-            StandardInput(
+          ),
+          SizedBox(height: 15),
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: StandardInput(
                 errorStr: null,
                 textInputType: TextInputType.number,
                 value: groupStates.group.value.targetKm.value.toString(),
@@ -93,9 +96,8 @@ class EditGroup extends StatelessWidget {
                     }
                 },
                 hintText: "Group name"),
-            SizedBox(height: 35),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
