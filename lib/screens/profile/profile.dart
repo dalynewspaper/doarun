@@ -4,6 +4,7 @@ import 'package:doarun/states/group_states.dart';
 import 'package:doarun/style/color.dart';
 import 'package:doarun/style/text.dart';
 import 'package:doarun/urls.dart';
+import 'package:doarun/utils/database/entities/group/entity_group.dart';
 import 'package:doarun/widgets/profile_picture.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -101,6 +102,7 @@ class Profile extends StatelessWidget {
                   icon: Icon(Icons.add),
                   color: Colors.white,
                   onPressed: () {
+                    groupStates.group.value = EntityGroup();
                     Get.toNamed(URL_GROUP_CREATION);
                   }),
             ),
@@ -110,45 +112,36 @@ class Profile extends StatelessWidget {
     );
   }
 
-  _getRunningGroups(context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.35,
-      child: ListView.builder(
+  _getRunningGroups(BuildContext context) {
+    return ListView.builder(
         shrinkWrap: true,
         itemCount: groupStates.groupsOwned.length,
         itemBuilder: (BuildContext context, int index) {
-          return Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 1,
-                  blurRadius: 4,
-                  offset: Offset(0, 4),
+          return OutlinedButton(
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white)),
+              onPressed: () {
+                groupStates.group.value = groupStates.groupsOwned[index];
+                Get.toNamed(URL_GROUP_EDITION);
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  children: [
+                    AutoSizeText(
+                        groupStates.groupsOwned[index].name.value +
+                            " - " +
+                            groupStates.groupsOwned[index].targetKm.value
+                                .toString() +
+                            "km",
+                        style: textStyleGroups),
+                    Spacer(),
+                    AutoSizeText(groupStates.groupsOwned[index].icon.value)
+                  ],
                 ),
-              ],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Row(
-                children: [
-                  AutoSizeText(
-                      groupStates.groupsOwned[index].name.value +
-                          " - " +
-                          groupStates.groupsOwned[index].targetKm.value
-                              .toString() +
-                          "km",
-                      style: textStyleGroups),
-                  Spacer(),
-                  Text("...", style: textStyleGroups)
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-    );
+              ));
+        });
   }
 
   _getLogOut() {

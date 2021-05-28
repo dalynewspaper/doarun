@@ -1,4 +1,5 @@
 // In app
-const URL_HOME = "/";
-const URL_PROFILE = "/profile";
-const URL_GROUP_CREATION = "/profile/group";
+const String URL_HOME = "/";
+const String URL_PROFILE = "/profile";
+const String URL_GROUP_CREATION = "/profile/groupCreation";
+const String URL_GROUP_EDITION = "/profile/groupEdition";

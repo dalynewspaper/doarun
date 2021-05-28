@@ -1,5 +1,6 @@
 import 'package:doarun/redirections.dart';
-import 'package:doarun/screens/profile/create_group/create_group.dart';
+import 'package:doarun/screens/profile/create_group.dart';
+import 'package:doarun/screens/profile/edit_group.dart';
 import 'package:doarun/screens/profile/profile.dart';
 import 'package:doarun/states/states_binding.dart';
 import 'package:doarun/urls.dart';
@@ -42,6 +43,10 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: URL_GROUP_CREATION,
           page: () => CreateGroup(),
+        ),
+        GetPage(
+          name: URL_GROUP_EDITION,
+          page: () => EditGroup(),
         ),
       ],
     );

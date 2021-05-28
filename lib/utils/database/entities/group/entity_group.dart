@@ -7,6 +7,7 @@ class EntityGroup extends GetxController {
   RxString name = "".obs;
   RxString icon = "👟".obs;
   RxDouble targetKm = 0.0.obs;
+  String owner = "";
   List accounts = [];
 
   EntityGroup();
@@ -19,6 +20,7 @@ class EntityGroup extends GetxController {
     return {
       "icon": this.icon.value,
       "targetKm": this.targetKm.value,
+      "owner": this.owner,
       "accounts": this.accounts,
     };
   }
@@ -32,6 +34,7 @@ class EntityGroup extends GetxController {
     this.name.value = key;
     this.icon.value = data["icon"];
     this.targetKm.value = data["targetKm"];
+    this.owner = data["owner"];
     this.accounts.assignAll(data["accounts"]);
     return true;
   }

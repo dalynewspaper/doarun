@@ -8,18 +8,28 @@ class StandardInput extends StatelessWidget {
   final String hintText;
   final TextInputType textInputType;
   final String errorStr;
+  final String value;
+  final bool isCenter;
+
+  final TextEditingController _controller = TextEditingController();
 
   StandardInput(
       {@required this.onChanged,
       @required this.hintText,
-      this.textInputType = TextInputType.text,
-      this.errorStr});
+        this.textInputType = TextInputType.text,
+        this.errorStr,
+        this.isCenter = false,
+        this.value = ""
+      });
 
   @override
   Widget build(BuildContext context) {
+    _controller.value = TextEditingValue(text: value);
     return TextField(
         keyboardType: textInputType,
         onChanged: onChanged,
+        controller: _controller,
+        textAlign: this.isCenter == false ? TextAlign.start : TextAlign.center,
         decoration: InputDecoration(
           fillColor: foregroundColor,
           filled: true,

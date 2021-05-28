@@ -14,10 +14,11 @@ class CreateGroup extends StatefulWidget {
 
 class _CreateGroup extends State<CreateGroup> {
   final GroupStates groupStates = Get.find();
+  final EntityGroup editedGroup = Get.arguments;
 
   @override
   void initState() {
-    groupStates.group.value = EntityGroup();
+    if (editedGroup != null) groupStates.group.value = editedGroup;
     super.initState();
   }
 

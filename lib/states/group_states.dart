@@ -6,10 +6,23 @@ import 'package:get/get.dart';
 class GroupStates extends GetxController {
   Rx<EntityGroup> group = EntityGroup().obs;
   List<EntityGroup> groupsOwned = <EntityGroup>[];
-  List<EntityAccount> groupAccounts = <EntityAccount>[];
+  RxList<EntityAccount> groupAccounts = <EntityAccount>[].obs;
 
   Future<bool> doesGroupExists(String groupName) async {
     return await API.entries.groups.doesExist(groupName);
+  }
+
+  Future<void> readAllGroups(String accountId) async {
+    groupsOwned.assignAll(await API.entries.groups.readAll(key: accountId));
+    group.value = groupsOwned.first;
+  }
+
+  Future<bool> readAllAccounts() async {
+    groupAccounts.clear();
+    await Future.forEach(group.value.accounts, (accountUid) async {
+      groupAccounts.add(await API.entries.accounts.read(accountUid));
+    });
+    return true;
   }
 
   // CRUD
@@ -29,18 +42,5 @@ class GroupStates extends GetxController {
 
   void deleteGroup(String groupName) {
     API.entries.groups.delete(groupName);
-  }
-
-  Future<void> readAllGroups(String accountId) async {
-    groupsOwned.assignAll(await API.entries.groups.readAll(key: accountId));
-    group.value = groupsOwned.first;
-  }
-
-  Future<bool> readAllAccounts(String accountId) async {
-    groupAccounts.clear();
-    await Future.forEach(group.value.accounts, (accountUid) async {
-      groupAccounts.add(await API.entries.accounts.read(accountUid));
-    });
-    return true;
   }
 }

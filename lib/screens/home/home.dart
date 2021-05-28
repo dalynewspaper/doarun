@@ -5,6 +5,7 @@ import 'package:doarun/states/group_states.dart';
 import 'package:doarun/style/color.dart';
 import 'package:doarun/style/text.dart';
 import 'package:doarun/utils/database/entities/group/entity_group.dart';
+import 'package:doarun/utils/dynamic_link.dart';
 import 'package:doarun/widgets/loading.dart';
 import 'package:doarun/widgets/profile_picture.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,9 +25,15 @@ class _Home extends State<Home> {
   final GroupStates groupStates = Get.find();
   Future _future;
 
+  Future<bool> _futureFunction() async {
+    await accountStates.getNewTotalDistance();
+    await dynamicLink.handleDynamicLinks();
+    return true;
+  }
+
   @override
   void initState() {
-    _future = accountStates.getNewTotalDistance();
+    _future = _futureFunction();
     super.initState();
   }
 

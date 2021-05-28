@@ -5,44 +5,30 @@ import 'package:doarun/style/color.dart';
 import 'package:doarun/style/text.dart';
 import 'package:doarun/utils/database/entities/account/entity_account.dart';
 import 'package:doarun/utils/database/entities/group/entity_group.dart';
+import 'package:doarun/utils/dynamic_link.dart';
 import 'package:doarun/widgets/loading.dart';
 import 'package:doarun/widgets/profile_picture.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
+import 'package:share/share.dart';
 
 import '../../style/color.dart';
 
-class Ranking extends StatefulWidget {
+class Ranking extends StatelessWidget {
+  final AccountStates accountStates = Get.find();
+  final GroupStates groupStates = Get.find();
   final EntityGroup group;
 
   Ranking({@required this.group});
 
   @override
-  _Ranking createState() => _Ranking(group: group);
-}
-
-class _Ranking extends State<Ranking> {
-  final AccountStates accountStates = Get.find();
-  final GroupStates groupStates = Get.find();
-  final EntityGroup group;
-  Future futureGroupUsers;
-
-  _Ranking({@required this.group});
-
-  @override
-  initState() {
-    futureGroupUsers = groupStates.readAllAccounts(group.name.value);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: futureGroupUsers,
-        builder: (BuildContext context, snapshot) {
-          if (snapshot.hasData)
+        future: groupStates.readAllAccounts(),
+        builder: (BuildContext context, snap) {
+          if (snap.hasData)
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -57,7 +43,7 @@ class _Ranking extends State<Ranking> {
                     ? _getInvite()
                     : Container(),
                 Container(height: 30),
-                _AddMemberButton(),
+                _AddMemberButton(groupName: groupStates.group.value.name.value),
               ],
             );
           else
@@ -121,11 +107,7 @@ class _Board extends StatelessWidget {
         shrinkWrap: true,
         itemCount: members.length,
         itemBuilder: (context, index) {
-          return Column(
-            children: [
-              _getList(index),
-            ],
-          );
+          return _getList(index);
         });
   }
 
@@ -177,10 +159,16 @@ _makeHeaderRanking(context) {
 }
 
 class _AddMemberButton extends StatelessWidget {
+  final String groupName;
+
+  _AddMemberButton({@required this.groupName});
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () async {
+        Share.share(await dynamicLink.createInvitationLink(groupName));
+      },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
