@@ -66,19 +66,6 @@ class Profile extends StatelessWidget {
                   accountStates.account.name.value.toUpperCase(),
                   style: textStyleUserName)),
         ),
-        RichText(
-          text: TextSpan(
-            // Note: Styles for TextSpans must be explicitly defined.
-            // Child text spans will inherit styles from parent
-            style: textStyleInfos,
-            children: <TextSpan>[
-              new TextSpan(text: 'Wallet   '),
-              new TextSpan(
-                  text: '0.00 EUR',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
-            ],
-          ),
-        )
       ],
     );
   }

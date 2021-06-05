@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:share/share.dart';
-
 import '../../style/color.dart';
 
 class Ranking extends StatelessWidget {
@@ -138,7 +137,7 @@ _makeTitle() {
   return Container(
     color: mainColor,
     child: Padding(
-      padding: const EdgeInsets.fromLTRB(15.0, 15.0, 25.0, 15.0),
+      padding: const EdgeInsets.fromLTRB(5.0, 5.0, 15.0, 5.0),
       child: Text("This week", style: textStyleTitle),
     ),
   );
@@ -147,6 +146,7 @@ _makeTitle() {
 _makeHeaderRanking(context) {
   return Container(
     width: MediaQuery.of(context).size.width,
+    padding: const EdgeInsets.fromLTRB(0, 0, 0, 25.0),
     child: Stack(
       alignment: AlignmentDirectional.centerStart,
       children: [
