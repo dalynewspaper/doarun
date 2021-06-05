@@ -2,7 +2,6 @@ import 'package:doarun/states/group_states.dart';
 import 'package:doarun/style/text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class GroupSelector extends StatelessWidget {
@@ -11,14 +10,10 @@ class GroupSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 20.0),
+      padding: const EdgeInsets.only(left: 15.0),
       child: Row(
         children: [
-          SvgPicture.asset(
-            "assets/grandpal-logo.svg",
-            height: 30,
-          ),
-          Container(width: 10),
+          Container(width: 0),
           Obx(() => DropdownButton<String>(
                 value: groupStates.group.value.name.value,
                 icon: const Icon(
