@@ -39,7 +39,7 @@ class EntityAccount extends GetxController {
     this.uid = key;
     this.name.value = data["name"];
     this.pictureUrl.value = data["pictureUrl"];
-    this.totalDistance = data["totalDistance"];
+    this.totalDistance = data["totalDistance"].toDouble();
     this.onboardingStep.value = data["onboardingStep"];
     this.refreshToken = data["refreshToken"];
     this.stravaId = data["stravaId"];

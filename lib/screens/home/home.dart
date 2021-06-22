@@ -9,6 +9,7 @@ import 'package:doarun/utils/dynamic_link.dart';
 import 'package:doarun/widgets/loading.dart';
 import 'package:doarun/widgets/profile_picture.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,7 @@ class _Home extends State<Home> {
 
   Future<bool> _futureFunction() async {
     await accountStates.getNewTotalDistance();
-    await dynamicLink.handleDynamicLinks();
+    if (!kIsWeb) await dynamicLink.handleDynamicLinks();
     return true;
   }
 
@@ -42,6 +43,7 @@ class _Home extends State<Home> {
     return FutureBuilder(
         future: _future,
         builder: (BuildContext context, snapshot) {
+          if (snapshot.hasError) print(snapshot.error);
           if (snapshot.hasData)
             return WillPopScope(
               onWillPop: () async {
