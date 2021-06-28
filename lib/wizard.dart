@@ -8,12 +8,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class Redirections extends StatefulWidget {
+class Wizard extends StatefulWidget {
   @override
-  _Redirections createState() => _Redirections();
+  _Wizard createState() => _Wizard();
 }
 
-class _Redirections extends State<Redirections> {
+class _Wizard extends State<Wizard> {
   final AppStates appStates = Get.find();
   final AccountStates accountStates = Get.find();
   Future<bool> _future;
@@ -35,7 +35,6 @@ class _Redirections extends State<Redirections> {
     return FutureBuilder(
         future: _future,
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          if (snapshot.hasError) print(snapshot.error);
           if (snapshot.hasData)
             return Obx(() => _RedirectionFlow(
                   isAppLoading: appStates.loading.value,

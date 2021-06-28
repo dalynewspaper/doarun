@@ -1,9 +1,9 @@
-import 'package:doarun/redirections.dart';
 import 'package:doarun/screens/profile/create_group.dart';
 import 'package:doarun/screens/profile/edit_group.dart';
 import 'package:doarun/screens/profile/profile.dart';
 import 'package:doarun/states/states_binding.dart';
 import 'package:doarun/urls.dart';
+import 'package:doarun/wizard.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
                   statusBarIconBrightness: Brightness.dark,
                   systemNavigationBarIconBrightness: Brightness.dark,
                 ),
-                child: Redirections()),
+                child: Wizard()),
             binding: StatesBinding()),
         GetPage(
           name: URL_PROFILE,
