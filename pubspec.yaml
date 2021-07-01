@@ -30,7 +30,7 @@ dependencies:
   share: ^2.0.1
   firebase_analytics: ^7.0.1
   google_maps_flutter: ^2.0.6
-  flutter_polyline_points: ^1.0.0
+  google_maps_flutter_web: ^0.3.0+2
 
 flavorizr:
   app:
