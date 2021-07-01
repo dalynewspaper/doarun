@@ -11,7 +11,7 @@ then
   rm ./web/index.html
   cp ./web/flavors/index_"$2".html ./web
   mv ./web/index_"$2".html ./web/index.html
-  flutter build "$2" -t ./lib/main_"$2".dart --flavor "$2"
+  flutter build web -t ./lib/main_"$2".dart
 elif [[ $1 == "android" ]]
 then
   rm ./android/app/src/main/AndroidManifest.xml
