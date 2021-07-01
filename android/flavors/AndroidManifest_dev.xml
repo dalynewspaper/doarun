@@ -23,7 +23,7 @@
         <category android:name="android.intent.category.BROWSABLE" />
 
         <data
-            android:host="doarunbeta.page.link"
+            android:host="doarundev.page.link"
             android:scheme="https" />
       </intent-filter>
 

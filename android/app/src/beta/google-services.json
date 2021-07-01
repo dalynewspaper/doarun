@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "40593123332-6ecb65uqrm85b6rr1iv6vsa1qmhq8epd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "beta.doarun.app",
+            "certificate_hash": "09c0a6653a2d2edefa9583d394a833ff5aee2f98"
+          }
+        },
+        {
           "client_id": "40593123332-4i2dioj0k5ocvpka7r3iic82e0qkq9f7.apps.googleusercontent.com",
           "client_type": 3
         }
