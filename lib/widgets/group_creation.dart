@@ -109,6 +109,7 @@ class GroupCreation extends StatelessWidget {
     } else {
       groupStates.group.value.accounts.add(accountStates.account.uid);
       groupStates.group.value.owner = accountStates.account.uid;
+      groupStates.group.value.lastRunTimestamp = 0;
       await groupStates.createGroup();
       if (isOnboarding) accountStates.account.onboardingStep.value += 1;
       accountStates.updateAccount();

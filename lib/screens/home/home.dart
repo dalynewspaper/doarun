@@ -4,6 +4,7 @@ import 'package:doarun/states/account_states.dart';
 import 'package:doarun/states/group_states.dart';
 import 'package:doarun/style/color.dart';
 import 'package:doarun/style/text.dart';
+import 'package:doarun/utils/database/api.dart';
 import 'package:doarun/utils/database/entities/group/entity_group.dart';
 import 'package:doarun/utils/dynamic_link.dart';
 import 'package:doarun/widgets/loading.dart';
@@ -27,8 +28,14 @@ class _Home extends State<Home> {
   Future _future;
 
   Future<bool> _futureFunction() async {
-    await accountStates.getNewTotalDistance();
+    final Map refreshTokenResponse = await API.extern.strava
+        .getAccessToken(accountStates.account.refreshToken);
+    accountStates.account.refreshToken = refreshTokenResponse["refresh_token"];
+    final String accessToken = refreshTokenResponse["access_token"];
+    await accountStates.getNewTotalDistance(accessToken);
     if (!kIsWeb) await dynamicLink.handleDynamicLinks();
+    await groupStates.updateLatestRun(
+        accessToken, accountStates.account.name.value);
     return true;
   }
 

@@ -14,7 +14,7 @@ class ServiceStrava {
       'response_type': 'code',
       'client_id': clientId,
       'redirect_uri': 'com.doarun://redirect/',
-      'scope': 'activity:write,read',
+      'scope': 'activity:read_all',
     });
     final String code = Uri.parse(await FlutterWebAuth.authenticate(
             url: url.toString(), callbackUrlScheme: "com.doarun"))
@@ -24,7 +24,7 @@ class ServiceStrava {
       "client_id": clientId,
       "client_secret": clientSecret,
       "code": code,
-      "grant_type": "authorization_code"
+      "grant_type": "authorization_code",
     });
     return json.decode(response.body);
   }
@@ -36,6 +36,7 @@ class ServiceStrava {
       "client_secret": clientSecret,
       "grant_type": "refresh_token",
       "refresh_token": refreshToken,
+      "scope": "activity:read_all"
     });
     return json.decode(response.body);
   }
@@ -47,5 +48,26 @@ class ServiceStrava {
             "/stats"),
         headers: {"Authorization": "Bearer $accessToken"});
     return json.decode(response.body);
+  }
+
+  Future<Map> getAthleteLastActivity(
+      int fromTimestamp, String accessToken) async {
+    final Response activitiesResponse = await client.get(
+        Uri.parse("https://www.strava.com/api/v3/athlete/activities?after=" +
+            fromTimestamp.toString()),
+        headers: {"Authorization": "Bearer $accessToken"});
+    try {
+      final List activities = json.decode(activitiesResponse.body);
+      Map lastActivity = activities.first;
+      activities.forEach((element) {
+        if (DateTime.parse(element["start_date"])
+            .isAfter(DateTime.parse(lastActivity["start_date"])))
+          lastActivity = element;
+      });
+      print(lastActivity);
+      return lastActivity;
+    } catch (e) {
+      return Map();
+    }
   }
 }
