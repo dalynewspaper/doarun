@@ -22,6 +22,22 @@
           }
         },
         {
+          "client_id": "878477674139-eomeedpjp82opu80gbksnvtps9qegacf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.doarun.app",
+            "certificate_hash": "1f7f4850c80545518fb60444e54b0b2d35a59394"
+          }
+        },
+        {
+          "client_id": "878477674139-jq60bbh6pn7coqepqtr8s87crka36r5m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dev.doarun.app",
+            "certificate_hash": "c2aac2a53d22efd5bef406d04c110e663f6b3103"
+          }
+        },
+        {
           "client_id": "878477674139-8kmu4qlapvpv8n7cd51c7ngp8frq0d03.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -35,7 +51,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "878477674139-8kmu4qlapvpv8n7cd51c7ngp8frq0d03.apps.googleusercontent.com",
+              "client_id": "878477674139-41g9vpue9acvt0vo0gjv8eu4988kh76a.apps.googleusercontent.com",
               "client_type": 3
             },
             {

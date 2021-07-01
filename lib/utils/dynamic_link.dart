@@ -29,16 +29,19 @@ class DynamicLink {
         groupStates.updateGroup();
         Get.snackbar(
             "You have join " + deepLink.queryParameters["groupName"], "");
-      }
+      } else
+        Get.snackbar(
+            "You have already joined " + deepLink.queryParameters["groupName"],
+            "");
     }
   }
 
   Future<String> createInvitationLink(String groupName) async {
     final DynamicLinkParameters parameters = DynamicLinkParameters(
-      uriPrefix: "https://doarun.page.link",
+      uriPrefix: "https://doarun" + F.title + ".page.link",
       link: Uri.parse("https://doarun.page.link/post?groupName=$groupName"),
       androidParameters: AndroidParameters(
-        packageName: F.appFlavor.toString() + ".doarun.app",
+        packageName: F.title + ".doarun.app",
         minimumVersion: 0,
       ),
       dynamicLinkParametersOptions: DynamicLinkParametersOptions(
