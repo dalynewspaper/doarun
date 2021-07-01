@@ -1,4 +1,4 @@
-package dev.doarun.app.doarun
+package dev.doarun.app
 
 import io.flutter.embedding.android.FlutterActivity
 
