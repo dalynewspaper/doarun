@@ -4,6 +4,7 @@ import 'package:doarun/states/onboarding_states.dart';
 import 'package:doarun/style/color.dart';
 import 'package:doarun/style/text.dart';
 import 'package:doarun/urls.dart';
+import 'package:doarun/utils/database/entities/group/entity_group.dart';
 import 'package:doarun/widgets_default/text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -38,12 +39,12 @@ class GroupCreation extends StatelessWidget {
         ),
         Container(height: 20),
         DoarunTextField(
-            initialValue: groupStates.group.value.name,
+            initialValue: groupStates.groupTmp.name,
             errorStr: onboardingStates.isGroupNameFieldValid.value ? null : "",
             textInputType: TextInputType.name,
             onChanged: (String value) {
               onboardingStates.isGroupNameFieldValid.value = value.isNotEmpty;
-              groupStates.group.value.name = value.trim();
+              groupStates.groupTmp.name = value.trim();
             },
             hintText: "Group Name"),
         Container(height: 30),
@@ -56,13 +57,13 @@ class GroupCreation extends StatelessWidget {
         ),
         Container(height: 20),
         DoarunTextField(
-            initialValue: groupStates.group.value.targetKm.toString(),
+            initialValue: groupStates.groupTmp.targetKm.toString(),
             textInputType: TextInputType.number,
             errorStr: !onboardingStates.isKmTargetFieldValid.value ? "" : null,
             onChanged: (String value) {
               if (value.isNotEmpty)
                 try {
-                  groupStates.group.value.targetKm = double.parse(value);
+                  groupStates.groupTmp.targetKm = double.parse(value);
                   onboardingStates.isKmTargetFieldValid.value = true;
                 } catch (e) {
                   if (!Get.isSnackbarOpen)
@@ -95,27 +96,30 @@ class GroupCreation extends StatelessWidget {
 
   Future<void> _createGroup() async {
     // checking fields
-    if (groupStates.group.value.name.isEmpty ||
-        groupStates.group.value.targetKm < 0.1) {
+    if (groupStates.groupTmp.name.isEmpty ||
+        groupStates.groupTmp.targetKm < 0.1) {
       if (!Get.isSnackbarOpen) Get.snackbar("error", "Missing fields");
       onboardingStates.isGroupNameFieldValid.value =
-          groupStates.group.value.name.isNotEmpty;
+          groupStates.groupTmp.name.isNotEmpty;
       onboardingStates.isKmTargetFieldValid.value =
-          groupStates.group.value.targetKm > 0.1;
+          groupStates.groupTmp.targetKm > 0.1;
       // checking if the name is already taken
-    } else if (await groupStates
-        .doesGroupExists(groupStates.group.value.name)) {
+    } else if (await groupStates.doesGroupExists(groupStates.groupTmp.name)) {
       if (!Get.isSnackbarOpen)
         Get.snackbar("Sorry :(", "This group name is already taken!");
       // group creation
     } else {
-      groupStates.group.value.accounts.add(accountStates.account.uid);
-      groupStates.group.value.owner = accountStates.account.uid;
-      groupStates.group.value.lastRunTimestamp = 0;
-      await groupStates.createGroup();
+      groupStates.groupTmp.accounts.add(accountStates.account.uid);
+      groupStates.groupTmp.owner = accountStates.account.uid;
+      groupStates.groupTmp.lastRunTimestamp = 0;
+      await groupStates.createGroup(groupStates.groupTmp);
+      groupStates.group.value = groupStates.groupTmp;
+      groupStates.groupTmp = EntityGroup();
       if (isOnboarding) accountStates.account.onboardingStep.value += 1;
       accountStates.updateAccount();
-      if (!isOnboarding) Get.toNamed(URL_PROFILE);
+      if (!isOnboarding) {
+        Get.toNamed(URL_PROFILE);
+      }
     }
   }
 }

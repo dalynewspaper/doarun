@@ -16,17 +16,33 @@ import 'package:share/share.dart';
 
 import '../../style/color.dart';
 
-class Ranking extends StatelessWidget {
-  final AccountStates accountStates = Get.find();
-  final GroupStates groupStates = Get.find();
+class Ranking extends StatefulWidget {
   final EntityGroup group;
 
   Ranking({@required this.group});
 
   @override
+  State<StatefulWidget> createState() => _Ranking(group: group);
+}
+
+class _Ranking extends State<Ranking> {
+  final AccountStates accountStates = Get.find();
+  final GroupStates groupStates = Get.find();
+  final EntityGroup group;
+  Future _future;
+
+  _Ranking({@required this.group});
+
+  @override
+  void initState() {
+    _future = groupStates.readAllAccounts();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: groupStates.readAllAccounts(),
+        future: _future,
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
           if (snapshot.hasData)
