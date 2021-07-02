@@ -19,6 +19,18 @@ class AccountStates extends GetxController {
     return true;
   }
 
+  Future<void> updateLatestRun(String accessToken) async {
+    final Map response = await API.extern.strava
+        .getAthleteLastActivity(account.lastRunTimestamp, accessToken);
+    if (response.isNotEmpty) {
+      account.lastRunTimestamp =
+          DateTime.parse(response["start_date_local"]).millisecondsSinceEpoch;
+      account.lastRunPolyline = response["map"]["summary_polyline"];
+      account.lastRunDistance = response["distance"];
+      updateAccount();
+    }
+  }
+
   // CRUD
 
   Future<void> createAccount() async {

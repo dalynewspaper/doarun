@@ -13,6 +13,11 @@ class EntityAccount extends GetxController {
   String refreshToken = "";
   int stravaId = -1;
 
+  //last run
+  String lastRunPolyline = "";
+  int lastRunTimestamp = 0;
+  double lastRunDistance = 0.0;
+
   EntityAccount();
 
   EntityAccount.fromJson(Map<String, dynamic> data, {String key = ""}) {
@@ -27,6 +32,9 @@ class EntityAccount extends GetxController {
       "onboardingStep": this.onboardingStep.value,
       "refreshToken": this.refreshToken,
       "stravaId": this.stravaId,
+      "lastRunPolyline": this.lastRunPolyline,
+      "lastRunTimestamp": this.lastRunTimestamp,
+      "lastRunDistance": this.lastRunDistance,
     };
   }
 
@@ -43,6 +51,9 @@ class EntityAccount extends GetxController {
     this.onboardingStep.value = data["onboardingStep"];
     this.refreshToken = data["refreshToken"];
     this.stravaId = data["stravaId"];
+    this.lastRunPolyline = data["lastRunPolyline"];
+    this.lastRunTimestamp = data["lastRunTimestamp"];
+    this.lastRunDistance = data["lastRunDistance"];
     return true;
   }
 }
