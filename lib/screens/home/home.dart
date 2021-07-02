@@ -2,13 +2,10 @@ import 'package:doarun/screens/home/group_selector.dart';
 import 'package:doarun/screens/home/ranking.dart';
 import 'package:doarun/states/account_states.dart';
 import 'package:doarun/states/group_states.dart';
-import 'package:doarun/style/color.dart';
-import 'package:doarun/style/text.dart';
 import 'package:doarun/utils/database/api.dart';
-import 'package:doarun/utils/database/entities/group/entity_group.dart';
 import 'package:doarun/utils/dynamic_link.dart';
-import 'package:doarun/widgets/loading.dart';
-import 'package:doarun/widgets/profile_picture.dart';
+import 'package:doarun/widgets_common/profile_picture.dart';
+import 'package:doarun/widgets_default/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -63,16 +60,10 @@ class _Home extends State<Home> {
                     child: ListView(
                       shrinkWrap: true,
                       children: [
-                        Stack(
-                          children: [
-                            GroupSelector(),
-                            Obx(() => getTargetIndicator(
-                                context, groupStates.group.value)),
-                          ],
-                        ),
-                        Container(height: 30),
+                        GroupSelector(),
+                        SizedBox(height: 30),
                         Obx(() => Ranking(group: groupStates.group.value)),
-                        Container(height: 35),
+                        SizedBox(height: 35),
                         Obx(
                           () =>
                               groupStates.group.value.lastRunPolyline.isNotEmpty
@@ -84,7 +75,7 @@ class _Home extends State<Home> {
                   )),
             );
           else
-            return Loading();
+            return DoarunLoading();
         });
   }
 
@@ -110,34 +101,6 @@ class _Home extends State<Home> {
         ),
         Container(width: 12),
       ],
-    );
-  }
-
-  Widget getTargetIndicator(context, EntityGroup group) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10.0, left: 15.0, right: 15.0),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(group.targetKm.value.toString() + " KM",
-                  style: textStyleKMNumber),
-              Container(width: 10),
-              SvgPicture.asset(
-                "assets/target.svg",
-                height: 30,
-              ),
-            ],
-          ),
-          Container(height: 10),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: 3,
-            color: accentColor,
-          ),
-        ],
-      ),
     );
   }
 }

@@ -3,7 +3,7 @@ import 'package:doarun/screens/onboarding/onboarding.dart';
 import 'package:doarun/states/account_states.dart';
 import 'package:doarun/states/app_states.dart';
 import 'package:doarun/utils/svg_loader.dart';
-import 'package:doarun/widgets/loading.dart';
+import 'package:doarun/widgets_default/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -41,7 +41,7 @@ class _Wizard extends State<Wizard> {
                   onboardingStep: accountStates.account.onboardingStep.value,
                 ));
           else
-            return Loading();
+            return DoarunLoading();
         });
   }
 }
@@ -56,7 +56,7 @@ class _RedirectionFlow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isAppLoading)
-      return Loading();
+      return DoarunLoading();
     else if (onboardingStep == null ||
         onboardingStep <= ID_ONBOARDING_STEP_STRAVA)
       return Onboarding();

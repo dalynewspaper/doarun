@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 class GroupStates extends GetxController {
   Rx<EntityGroup> group = EntityGroup().obs;
+  EntityGroup groupTmp = EntityGroup();
   List<EntityGroup> groupsOwned = <EntityGroup>[];
   RxList<EntityAccount> groupAccounts = <EntityAccount>[].obs;
 
@@ -14,7 +15,7 @@ class GroupStates extends GetxController {
 
   Future<void> readAllGroups(String accountId) async {
     groupsOwned.assignAll(await API.entries.groups.readAll(key: accountId));
-    group.value = groupsOwned.first;
+    if (groupsOwned.isNotEmpty) group.value = groupsOwned.first;
   }
 
   Future<bool> readAllAccounts() async {
@@ -37,9 +38,9 @@ class GroupStates extends GetxController {
 
   // CRUD
 
-  Future<void> createGroup() async {
-    await API.entries.groups.create(group.value);
-    groupsOwned.add(group.value);
+  Future<void> createGroup(EntityGroup group) async {
+    await API.entries.groups.create(group);
+    groupsOwned.add(group);
   }
 
   Future<void> readGroup(String groupId) async {
@@ -47,7 +48,7 @@ class GroupStates extends GetxController {
   }
 
   Future<void> updateGroup() async {
-    await API.entries.groups.update(group.value.name.value, group.value);
+    await API.entries.groups.update(group.value.name, group.value);
   }
 
   void deleteGroup(String groupName) {

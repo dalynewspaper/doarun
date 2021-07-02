@@ -10,7 +10,7 @@ class ServiceGroups extends IService<EntityGroup> {
 
   @override
   Future<void> create(EntityGroup entity, {String key = ""}) async {
-    await _collectionReference.doc(entity.name.value).set(entity.toMap());
+    await _collectionReference.doc(entity.name).set(entity.toMap());
   }
 
   @override

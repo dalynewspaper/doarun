@@ -4,8 +4,7 @@ import 'package:doarun/states/group_states.dart';
 import 'package:doarun/style/color.dart';
 import 'package:doarun/style/text.dart';
 import 'package:doarun/urls.dart';
-import 'package:doarun/utils/database/entities/group/entity_group.dart';
-import 'package:doarun/widgets/profile_picture.dart';
+import 'package:doarun/widgets_common/profile_picture.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,27 +16,33 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: getHomeAppBar(),
-        body: Padding(
-          padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
-          child: Column(
-            children: [
-              ProfilePicture(
-                  height: 100,
-                  width: 100,
-                  pictureUrl: accountStates.account.pictureUrl.value),
-              _getUserInfos(),
-              SizedBox(height: 50),
-              _getRunningGroupsHeader(),
-              SizedBox(height: 20),
-              _getRunningGroups(context),
-              Spacer(),
-              _getLogOut(),
-              _getTradeMark()
-            ],
-          ),
-        ));
+    return WillPopScope(
+      onWillPop: () async {
+        Get.toNamed(URL_HOME);
+        return true;
+      },
+      child: Scaffold(
+          appBar: getHomeAppBar(),
+          body: Padding(
+            padding: const EdgeInsets.only(top: 30.0, bottom: 20.0),
+            child: Column(
+              children: [
+                ProfilePicture(
+                    height: 100,
+                    width: 100,
+                    pictureUrl: accountStates.account.pictureUrl.value),
+                _getUserInfos(),
+                SizedBox(height: 50),
+                _getRunningGroupsHeader(),
+                SizedBox(height: 20),
+                _getRunningGroups(context),
+                Spacer(),
+                _getLogOut(),
+                _getTradeMark()
+              ],
+            ),
+          )),
+    );
   }
 
   AppBar getHomeAppBar() {
@@ -89,7 +94,6 @@ class Profile extends StatelessWidget {
                   icon: Icon(Icons.add),
                   color: Colors.white,
                   onPressed: () {
-                    groupStates.group.value = EntityGroup();
                     Get.toNamed(URL_GROUP_CREATION);
                   }),
             ),
@@ -117,10 +121,9 @@ class Profile extends StatelessWidget {
                 child: Row(
                   children: [
                     AutoSizeText(
-                        groupStates.groupsOwned[index].name.value +
+                        groupStates.groupsOwned[index].name +
                             " - " +
-                            groupStates.groupsOwned[index].targetKm.value
-                                .toString() +
+                            groupStates.groupsOwned[index].targetKm.toString() +
                             "km",
                         style: textStyleGroups),
                     Spacer(),

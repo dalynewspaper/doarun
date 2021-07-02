@@ -6,8 +6,8 @@ import 'package:doarun/style/text.dart';
 import 'package:doarun/utils/database/entities/account/entity_account.dart';
 import 'package:doarun/utils/database/entities/group/entity_group.dart';
 import 'package:doarun/utils/dynamic_link.dart';
-import 'package:doarun/widgets/loading.dart';
-import 'package:doarun/widgets/profile_picture.dart';
+import 'package:doarun/widgets_common/profile_picture.dart';
+import 'package:doarun/widgets_default/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,17 +16,33 @@ import 'package:share/share.dart';
 
 import '../../style/color.dart';
 
-class Ranking extends StatelessWidget {
-  final AccountStates accountStates = Get.find();
-  final GroupStates groupStates = Get.find();
+class Ranking extends StatefulWidget {
   final EntityGroup group;
 
   Ranking({@required this.group});
 
   @override
+  State<StatefulWidget> createState() => _Ranking(group: group);
+}
+
+class _Ranking extends State<Ranking> {
+  final AccountStates accountStates = Get.find();
+  final GroupStates groupStates = Get.find();
+  final EntityGroup group;
+  Future _future;
+
+  _Ranking({@required this.group});
+
+  @override
+  void initState() {
+    _future = groupStates.readAllAccounts();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: groupStates.readAllAccounts(),
+        future: _future,
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
           if (snapshot.hasData)
@@ -43,11 +59,11 @@ class Ranking extends StatelessWidget {
                     ? _getInvite()
                     : Container(),
                 SizedBox(height: 30),
-                _AddMemberButton(groupName: groupStates.group.value.name.value),
+                _AddMemberButton(groupName: groupStates.group.value.name),
               ],
             );
           else
-            return Loading();
+            return DoarunLoading();
         });
   }
 
