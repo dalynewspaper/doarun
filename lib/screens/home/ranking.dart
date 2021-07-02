@@ -44,19 +44,53 @@ class _Ranking extends State<Ranking> {
     return FutureBuilder(
         future: _future,
         builder: (BuildContext context, snapshot) {
-          if (snapshot.hasError) print(snapshot.error);
           if (snapshot.hasData)
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _makeHeaderRanking(context),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 25.0),
+                  child: Stack(
+                    alignment: AlignmentDirectional.centerStart,
+                    children: [
+                      Container(
+                        color: mainColor,
+                        child: Padding(
+                          padding:
+                              const EdgeInsets.fromLTRB(5.0, 5.0, 15.0, 5.0),
+                          child: Text("This week", style: textStyleTitle),
+                        ),
+                      ),
+                      Positioned(
+                          right: 40,
+                          child:
+                              Text("Total distance", style: textStyleDistance))
+                    ],
+                  ),
+                ),
                 Container(height: 10),
                 isNobody(groupStates.groupAccounts)
                     ? _getNobodyRan()
                     : Container(),
                 _Board(members: groupStates.groupAccounts),
                 groupStates.groupAccounts.length <= 1
-                    ? _getInvite()
+                    ? Center(
+                        child: Column(
+                        children: [
+                          SizedBox(height: 30),
+                          Lottie.asset("assets/runner.json",
+                              fit: BoxFit.contain, repeat: true, height: 200),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Looks like you are on your own in here. Invite some friends to join you !",
+                              style: textStyleKMNumber,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ))
                     : Container(),
                 SizedBox(height: 30),
                 _AddMemberButton(groupName: groupStates.group.value.name),
@@ -91,25 +125,6 @@ class _Ranking extends State<Ranking> {
       ]),
     );
   }
-
-  Widget _getInvite() {
-    return Center(
-        child: Column(
-      children: [
-        SizedBox(height: 30),
-        Lottie.asset("assets/runner.json",
-            fit: BoxFit.contain, repeat: true, height: 200),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            "Looks like you are on your own in here. Invite some friends to join you !",
-            style: textStyleKMNumber,
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ],
-    ));
-  }
 }
 
 class _Board extends StatelessWidget {
@@ -124,61 +139,33 @@ class _Board extends StatelessWidget {
         shrinkWrap: true,
         itemCount: members.length,
         itemBuilder: (context, index) {
-          return _getList(index);
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Container(
+                    width: 25,
+                    child: Text((index + 1).toString() + ".",
+                        style: textStyleH1Accent)),
+                ProfilePicture(
+                    height: 50,
+                    width: 50,
+                    pictureUrl: members[index].pictureUrl.value),
+                Container(
+                    width: 50,
+                    child: AutoSizeText(members[index].name.value,
+                        maxLines: 1, style: textStyleNames)),
+                Container(
+                    width: 75,
+                    child: Text(
+                        members[index].totalDistance.toStringAsFixed(3) +
+                            "km")),
+              ],
+            ),
+          );
         });
   }
-
-  Widget _getList(int index) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Container(
-              width: 25,
-              child:
-                  Text((index + 1).toString() + ".", style: textStyleH1Accent)),
-          ProfilePicture(
-              height: 50,
-              width: 50,
-              pictureUrl: members[index].pictureUrl.value),
-          Container(
-              width: 50,
-              child: AutoSizeText(members[index].name.value,
-                  maxLines: 1, style: textStyleNames)),
-          Container(
-              width: 75,
-              child:
-                  Text(members[index].totalDistance.toStringAsFixed(3) + "km")),
-        ],
-      ),
-    );
-  }
-}
-
-_makeTitle() {
-  return Container(
-    color: mainColor,
-    child: Padding(
-      padding: const EdgeInsets.fromLTRB(5.0, 5.0, 15.0, 5.0),
-      child: Text("This week", style: textStyleTitle),
-    ),
-  );
-}
-
-_makeHeaderRanking(context) {
-  return Container(
-    width: MediaQuery.of(context).size.width,
-    padding: const EdgeInsets.fromLTRB(0, 0, 0, 25.0),
-    child: Stack(
-      alignment: AlignmentDirectional.centerStart,
-      children: [
-        _makeTitle(),
-        Positioned(
-            right: 40, child: Text("Total distance", style: textStyleDistance))
-      ],
-    ),
-  );
 }
 
 class _AddMemberButton extends StatelessWidget {

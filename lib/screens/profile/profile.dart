@@ -28,17 +28,107 @@ class Profile extends StatelessWidget {
             child: Column(
               children: [
                 ProfilePicture(
-                    height: 100,
-                    width: 100,
+                    height: 75,
+                    width: 75,
                     pictureUrl: accountStates.account.pictureUrl.value),
-                _getUserInfos(),
+                Padding(
+                  padding: const EdgeInsets.only(top: 15.0, bottom: 10.0),
+                  child: Center(
+                      child: AutoSizeText(
+                          accountStates.account.name.value.toUpperCase(),
+                          style: textStyleUserName)),
+                ),
                 SizedBox(height: 50),
-                _getRunningGroupsHeader(),
+                Container(
+                  color: mainColor,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 15.0, top: 20.0, bottom: 20.0),
+                    child: Row(
+                      children: [
+                        Text("My running groups".toUpperCase(),
+                            style: textStyleGroupsTitle),
+                        SizedBox(width: 20),
+                        CircleAvatar(
+                          backgroundColor: accentColor,
+                          radius: 13,
+                          child: IconButton(
+                              padding: EdgeInsets.zero,
+                              iconSize: 19,
+                              icon: Icon(Icons.add),
+                              color: Colors.white,
+                              onPressed: () {
+                                Get.toNamed(URL_GROUP_CREATION);
+                              }),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 SizedBox(height: 20),
-                _getRunningGroups(context),
+                ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: groupStates.groupsOwned.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return OutlinedButton(
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.white)),
+                          onPressed: () {
+                            groupStates.group.value =
+                                groupStates.groupsOwned[index];
+                            Get.toNamed(URL_GROUP_EDITION);
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(20.0),
+                            child: Row(
+                              children: [
+                                AutoSizeText(
+                                    groupStates.groupsOwned[index].name +
+                                        " - " +
+                                        groupStates.groupsOwned[index].targetKm
+                                            .toString() +
+                                        "km",
+                                    style: textStyleGroups),
+                                Spacer(),
+                                AutoSizeText(
+                                    groupStates.groupsOwned[index].icon.value)
+                              ],
+                            ),
+                          ));
+                    }),
                 Spacer(),
-                _getLogOut(),
-                _getTradeMark()
+                Center(
+                    child: TextButton(
+                  onPressed: () {},
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(mainColor),
+                    shape: MaterialStateProperty.all<OutlinedBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
+                      ),
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 10.0, top: 4.0, right: 10.0, bottom: 4.0),
+                    child: FittedBox(
+                      child: Text(
+                        "Logout".toUpperCase(),
+                        style: textStyleButton,
+                      ),
+                    ),
+                  ),
+                )),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                      child: Text(
+                    "Version 0.1",
+                    style: textStyleTradeMark,
+                  )),
+                ),
               ],
             ),
           )),
@@ -58,115 +148,6 @@ class Profile extends StatelessWidget {
           height: 50,
         ),
       ),
-    );
-  }
-
-  _getUserInfos() {
-    return Column(
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 15.0, bottom: 10.0),
-          child: Center(
-              child: AutoSizeText(
-                  accountStates.account.name.value.toUpperCase(),
-                  style: textStyleUserName)),
-        ),
-      ],
-    );
-  }
-
-  _getRunningGroupsHeader() {
-    return Container(
-      color: mainColor,
-      child: Padding(
-        padding: const EdgeInsets.only(left: 15.0, top: 20.0, bottom: 20.0),
-        child: Row(
-          children: [
-            Text("My running groups".toUpperCase(),
-                style: textStyleGroupsTitle),
-            SizedBox(width: 20),
-            CircleAvatar(
-              backgroundColor: accentColor,
-              radius: 13,
-              child: IconButton(
-                  padding: EdgeInsets.zero,
-                  iconSize: 19,
-                  icon: Icon(Icons.add),
-                  color: Colors.white,
-                  onPressed: () {
-                    Get.toNamed(URL_GROUP_CREATION);
-                  }),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  _getRunningGroups(BuildContext context) {
-    return ListView.builder(
-        shrinkWrap: true,
-        itemCount: groupStates.groupsOwned.length,
-        itemBuilder: (BuildContext context, int index) {
-          return OutlinedButton(
-              style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.white)),
-              onPressed: () {
-                groupStates.group.value = groupStates.groupsOwned[index];
-                Get.toNamed(URL_GROUP_EDITION);
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Row(
-                  children: [
-                    AutoSizeText(
-                        groupStates.groupsOwned[index].name +
-                            " - " +
-                            groupStates.groupsOwned[index].targetKm.toString() +
-                            "km",
-                        style: textStyleGroups),
-                    Spacer(),
-                    AutoSizeText(groupStates.groupsOwned[index].icon.value)
-                  ],
-                ),
-              ));
-        });
-  }
-
-  _getLogOut() {
-    return Center(
-        child: TextButton(
-      onPressed: () {},
-      style: ButtonStyle(
-        backgroundColor: MaterialStateProperty.all<Color>(mainColor),
-        shape: MaterialStateProperty.all<OutlinedBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(
-            left: 10.0, top: 4.0, right: 10.0, bottom: 4.0),
-        child: FittedBox(
-          child: Text(
-            "Logout".toUpperCase(),
-            style: textStyleButton,
-          ),
-        ),
-      ),
-    ));
-  }
-
-  _getTradeMark() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Center(
-          child: Text(
-        "Version 0.1",
-        style: textStyleTradeMark,
-      )),
     );
   }
 }
