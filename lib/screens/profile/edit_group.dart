@@ -2,9 +2,9 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:doarun/states/account_states.dart';
 import 'package:doarun/states/group_states.dart';
 import 'package:doarun/style/color.dart';
-import 'package:doarun/style/input.dart';
 import 'package:doarun/style/text.dart';
 import 'package:doarun/utils/database/entities/account/entity_account.dart';
+import 'package:doarun/widgets_default/text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -54,15 +54,15 @@ class EditGroup extends StatelessWidget {
             alignment: Alignment.center,
             child: Container(
               width: MediaQuery.of(context).size.width / 2,
-              child: StandardInput(
+              child: DoarunTextField(
                   errorStr: null,
                   textInputType: TextInputType.name,
-                  value: groupStates.group.value.name.value,
+                  initialValue: groupStates.group.value.name,
                   onChanged: (String value) {
-                    groupStates.group.value.name.value = value;
+                    groupStates.group.value.name = value;
                   },
                   hintText: "Group name",
-                  isCenter: true),
+                  textAlignCenter: true),
             ),
           ),
           SizedBox(height: 45),
@@ -80,15 +80,14 @@ class EditGroup extends StatelessWidget {
           SizedBox(height: 15),
           Padding(
             padding: const EdgeInsets.all(20.0),
-            child: StandardInput(
+            child: DoarunTextField(
                 errorStr: null,
                 textInputType: TextInputType.number,
-                value: groupStates.group.value.targetKm.value.toString(),
+                initialValue: groupStates.group.value.targetKm.toString(),
                 onChanged: (String value) {
                   if (value.isNotEmpty)
                     try {
-                      groupStates.group.value.targetKm.value =
-                          double.parse(value);
+                      groupStates.group.value.targetKm = double.parse(value);
                     } catch (e) {
                       if (!Get.isSnackbarOpen)
                         Get.snackbar(

@@ -5,7 +5,7 @@ import 'package:doarun/style/color.dart';
 import 'package:doarun/style/text.dart';
 import 'package:doarun/urls.dart';
 import 'package:doarun/utils/database/entities/group/entity_group.dart';
-import 'package:doarun/widgets/profile_picture.dart';
+import 'package:doarun/widgets_common/profile_picture.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -117,10 +117,9 @@ class Profile extends StatelessWidget {
                 child: Row(
                   children: [
                     AutoSizeText(
-                        groupStates.groupsOwned[index].name.value +
+                        groupStates.groupsOwned[index].name +
                             " - " +
-                            groupStates.groupsOwned[index].targetKm.value
-                                .toString() +
+                            groupStates.groupsOwned[index].targetKm.toString() +
                             "km",
                         style: textStyleGroups),
                     Spacer(),

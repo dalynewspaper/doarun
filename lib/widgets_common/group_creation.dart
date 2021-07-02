@@ -2,9 +2,9 @@ import 'package:doarun/states/account_states.dart';
 import 'package:doarun/states/group_states.dart';
 import 'package:doarun/states/onboarding_states.dart';
 import 'package:doarun/style/color.dart';
-import 'package:doarun/style/input.dart';
 import 'package:doarun/style/text.dart';
 import 'package:doarun/urls.dart';
+import 'package:doarun/widgets_default/text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -37,14 +37,15 @@ class GroupCreation extends StatelessWidget {
           ),
         ),
         Container(height: 20),
-        Obx(() => StandardInput(
+        DoarunTextField(
+            initialValue: groupStates.group.value.name,
             errorStr: onboardingStates.isGroupNameFieldValid.value ? null : "",
             textInputType: TextInputType.name,
             onChanged: (String value) {
               onboardingStates.isGroupNameFieldValid.value = value.isNotEmpty;
-              groupStates.group.value.name.value = value.trim();
+              groupStates.group.value.name = value.trim();
             },
-            hintText: "Group Name")),
+            hintText: "Group Name"),
         Container(height: 30),
         Align(
           alignment: Alignment.topLeft,
@@ -54,13 +55,14 @@ class GroupCreation extends StatelessWidget {
           ),
         ),
         Container(height: 20),
-        Obx(() => StandardInput(
+        DoarunTextField(
+            initialValue: groupStates.group.value.targetKm.toString(),
             textInputType: TextInputType.number,
             errorStr: !onboardingStates.isKmTargetFieldValid.value ? "" : null,
             onChanged: (String value) {
               if (value.isNotEmpty)
                 try {
-                  groupStates.group.value.targetKm.value = double.parse(value);
+                  groupStates.group.value.targetKm = double.parse(value);
                   onboardingStates.isKmTargetFieldValid.value = true;
                 } catch (e) {
                   if (!Get.isSnackbarOpen)
@@ -70,7 +72,7 @@ class GroupCreation extends StatelessWidget {
                   print(e);
                 }
             },
-            hintText: "Type distance in km")),
+            hintText: "Type distance in km"),
         SizedBox(height: 50),
         TextButton(
             style: ButtonStyle(
@@ -83,7 +85,7 @@ class GroupCreation extends StatelessWidget {
             },
             child: Padding(
               padding: const EdgeInsets.only(
-                  left: 40.0, top: 10.0, right: 40.0, bottom: 10.0),
+                  left: 20.0, top: 10.0, right: 20.0, bottom: 10.0),
               child: Text("Create running group".toUpperCase(),
                   maxLines: 1, style: textStyleBoldWhite),
             ))
@@ -99,10 +101,10 @@ class GroupCreation extends StatelessWidget {
       onboardingStates.isGroupNameFieldValid.value =
           groupStates.group.value.name.isNotEmpty;
       onboardingStates.isKmTargetFieldValid.value =
-          groupStates.group.value.targetKm.value > 0.1;
+          groupStates.group.value.targetKm > 0.1;
       // checking if the name is already taken
     } else if (await groupStates
-        .doesGroupExists(groupStates.group.value.name.value)) {
+        .doesGroupExists(groupStates.group.value.name)) {
       if (!Get.isSnackbarOpen)
         Get.snackbar("Sorry :(", "This group name is already taken!");
       // group creation

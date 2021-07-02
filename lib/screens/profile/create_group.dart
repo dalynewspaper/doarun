@@ -2,7 +2,7 @@ import 'package:doarun/states/group_states.dart';
 import 'package:doarun/style/color.dart';
 import 'package:doarun/urls.dart';
 import 'package:doarun/utils/database/entities/group/entity_group.dart';
-import 'package:doarun/widgets/group_creation.dart';
+import 'package:doarun/widgets_common/group_creation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

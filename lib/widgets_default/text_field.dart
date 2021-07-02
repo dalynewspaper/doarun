@@ -1,35 +1,36 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'color.dart';
+import '../style/color.dart';
 
-class StandardInput extends StatelessWidget {
-  final onChanged;
+class DoarunTextField extends StatelessWidget {
+  final String initialValue;
+  final Function onChanged;
   final String hintText;
   final TextInputType textInputType;
   final String errorStr;
-  final String value;
-  final bool isCenter;
+  final bool textAlignCenter;
 
   final TextEditingController _controller = TextEditingController();
 
-  StandardInput(
-      {@required this.onChanged,
+  DoarunTextField(
+      {@required this.initialValue,
+      @required this.onChanged,
       @required this.hintText,
-        this.textInputType = TextInputType.text,
-        this.errorStr,
-        this.isCenter = false,
-        this.value = ""
-      });
+      this.textInputType = TextInputType.text,
+      this.errorStr,
+      this.textAlignCenter = false});
 
   @override
   Widget build(BuildContext context) {
-    _controller.value = TextEditingValue(text: value);
+    _controller.value = TextEditingValue(text: initialValue);
     return TextField(
         keyboardType: textInputType,
         onChanged: onChanged,
         controller: _controller,
-        textAlign: this.isCenter == false ? TextAlign.start : TextAlign.center,
+        autocorrect: false,
+        textAlign:
+            this.textAlignCenter == false ? TextAlign.start : TextAlign.center,
         decoration: InputDecoration(
           fillColor: foregroundColor,
           filled: true,

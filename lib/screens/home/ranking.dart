@@ -6,8 +6,8 @@ import 'package:doarun/style/text.dart';
 import 'package:doarun/utils/database/entities/account/entity_account.dart';
 import 'package:doarun/utils/database/entities/group/entity_group.dart';
 import 'package:doarun/utils/dynamic_link.dart';
-import 'package:doarun/widgets/loading.dart';
-import 'package:doarun/widgets/profile_picture.dart';
+import 'package:doarun/widgets_common/profile_picture.dart';
+import 'package:doarun/widgets_default/loading.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -43,11 +43,11 @@ class Ranking extends StatelessWidget {
                     ? _getInvite()
                     : Container(),
                 SizedBox(height: 30),
-                _AddMemberButton(groupName: groupStates.group.value.name.value),
+                _AddMemberButton(groupName: groupStates.group.value.name),
               ],
             );
           else
-            return Loading();
+            return DoarunLoading();
         });
   }
 

@@ -14,7 +14,7 @@ class GroupStates extends GetxController {
 
   Future<void> readAllGroups(String accountId) async {
     groupsOwned.assignAll(await API.entries.groups.readAll(key: accountId));
-    group.value = groupsOwned.first;
+    if (groupsOwned.isNotEmpty) group.value = groupsOwned.first;
   }
 
   Future<bool> readAllAccounts() async {
@@ -47,7 +47,7 @@ class GroupStates extends GetxController {
   }
 
   Future<void> updateGroup() async {
-    await API.entries.groups.update(group.value.name.value, group.value);
+    await API.entries.groups.update(group.value.name, group.value);
   }
 
   void deleteGroup(String groupName) {
