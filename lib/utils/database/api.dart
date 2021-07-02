@@ -1,7 +1,6 @@
-import 'package:doarun/utils/database/services/accounts/service_accounts.dart';
-import 'package:doarun/utils/database/services/groups/service_groups.dart';
-
 import 'externs/strava.dart';
+import 'services/accounts/service_accounts.dart';
+import 'services/groups/service_groups.dart';
 
 class API {
   static final entries = _Entries();

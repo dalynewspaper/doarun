@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:share/share.dart';
+
 import '../../style/color.dart';
 
 class Ranking extends StatelessWidget {
@@ -26,8 +27,9 @@ class Ranking extends StatelessWidget {
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: groupStates.readAllAccounts(),
-        builder: (BuildContext context, snap) {
-          if (snap.hasData)
+        builder: (BuildContext context, snapshot) {
+          if (snapshot.hasError) print(snapshot.error);
+          if (snapshot.hasData)
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -37,11 +39,10 @@ class Ranking extends StatelessWidget {
                     ? _getNobodyRan()
                     : Container(),
                 _Board(members: groupStates.groupAccounts),
-                SizedBox(height: 30),
                 groupStates.groupAccounts.length <= 1
                     ? _getInvite()
                     : Container(),
-                Container(height: 30),
+                SizedBox(height: 30),
                 _AddMemberButton(groupName: groupStates.group.value.name.value),
               ],
             );
@@ -79,6 +80,7 @@ class Ranking extends StatelessWidget {
     return Center(
         child: Column(
       children: [
+        SizedBox(height: 30),
         Lottie.asset("assets/runner.json",
             fit: BoxFit.contain, repeat: true, height: 200),
         Padding(
@@ -95,7 +97,7 @@ class Ranking extends StatelessWidget {
 }
 
 class _Board extends StatelessWidget {
-  final List<EntityAccount> members;
+  final RxList<EntityAccount> members;
 
   _Board({@required this.members});
 
@@ -110,25 +112,30 @@ class _Board extends StatelessWidget {
         });
   }
 
-  Row _getList(int index) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Container(
-            width: 25,
-            child:
-                Text((index + 1).toString() + ".", style: textStyleH1Accent)),
-        ProfilePicture(
-            height: 50, width: 50, pictureUrl: members[index].pictureUrl.value),
-        Container(
-            width: 50,
-            child: AutoSizeText(members[index].name.value,
-                maxLines: 1, style: textStyleNames)),
-        Container(
-            width: 75,
-            child:
-                Text(members[index].totalDistance.toStringAsFixed(3) + "km")),
-      ],
+  Widget _getList(int index) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+              width: 25,
+              child:
+                  Text((index + 1).toString() + ".", style: textStyleH1Accent)),
+          ProfilePicture(
+              height: 50,
+              width: 50,
+              pictureUrl: members[index].pictureUrl.value),
+          Container(
+              width: 50,
+              child: AutoSizeText(members[index].name.value,
+                  maxLines: 1, style: textStyleNames)),
+          Container(
+              width: 75,
+              child:
+                  Text(members[index].totalDistance.toStringAsFixed(3) + "km")),
+        ],
+      ),
     );
   }
 }

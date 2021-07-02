@@ -11,10 +11,10 @@ class EntityGroup extends GetxController {
   List accounts = [];
 
   //last run
-  String lastRunPolyline;
-  String lastRunner;
-  int lastRunTimestamp;
-  double lastRunDistance;
+  String lastRunPolyline = "";
+  String lastRunner = "";
+  int lastRunTimestamp = 0;
+  double lastRunDistance = 0.0;
 
   EntityGroup();
 

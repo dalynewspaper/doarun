@@ -34,8 +34,8 @@ class _Home extends State<Home> {
     final String accessToken = refreshTokenResponse["access_token"];
     await accountStates.getNewTotalDistance(accessToken);
     if (!kIsWeb) await dynamicLink.handleDynamicLinks();
-    await groupStates.updateLatestRun(
-        accessToken, accountStates.account.name.value);
+    await accountStates.updateLatestRun(accessToken);
+    groupStates.updateLatestRun(accountStates.account);
     return true;
   }
 
@@ -73,7 +73,12 @@ class _Home extends State<Home> {
                         Container(height: 30),
                         Obx(() => Ranking(group: groupStates.group.value)),
                         Container(height: 35),
-                        LatestRun(),
+                        Obx(
+                          () =>
+                              groupStates.group.value.lastRunPolyline.isNotEmpty
+                                  ? LatestRun(group: groupStates.group.value)
+                                  : Container(),
+                        )
                       ],
                     ),
                   )),

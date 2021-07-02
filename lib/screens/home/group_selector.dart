@@ -1,3 +1,4 @@
+import 'package:doarun/states/account_states.dart';
 import 'package:doarun/states/group_states.dart';
 import 'package:doarun/style/text.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,6 +7,7 @@ import 'package:get/get.dart';
 
 class GroupSelector extends StatelessWidget {
   final GroupStates groupStates = Get.find();
+  final AccountStates accountStates = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class GroupSelector extends StatelessWidget {
                   groupStates.group.value = groupStates.groupsOwned
                       .where((element) => element.name.value == newValue)
                       .first;
+                  groupStates.updateLatestRun(accountStates.account);
                 },
                 items: groupStates.groupsOwned
                     .map((e) => e.name.value)

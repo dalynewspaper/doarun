@@ -25,15 +25,12 @@ class GroupStates extends GetxController {
     return true;
   }
 
-  Future<void> updateLatestRun(String accessToken, String name) async {
-    final Map response = await API.extern.strava
-        .getAthleteLastActivity(group.value.lastRunTimestamp, accessToken);
-    if (response.isNotEmpty) {
-      group.value.lastRunTimestamp =
-          DateTime.parse(response["start_date_local"]).millisecondsSinceEpoch;
-      group.value.lastRunner = name;
-      group.value.lastRunPolyline = response["map"]["summary_polyline"];
-      group.value.lastRunDistance = response["distance"];
+  Future<void> updateLatestRun(EntityAccount account) async {
+    if (group.value.lastRunTimestamp < account.lastRunTimestamp) {
+      group.value.lastRunTimestamp = account.lastRunTimestamp;
+      group.value.lastRunner = account.name.value;
+      group.value.lastRunPolyline = account.lastRunPolyline;
+      group.value.lastRunDistance = account.lastRunDistance;
       updateGroup();
     }
   }
