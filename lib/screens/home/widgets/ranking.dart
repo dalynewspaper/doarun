@@ -9,12 +9,13 @@ import 'package:doarun/utils/dynamic_link.dart';
 import 'package:doarun/widgets_common/profile_picture.dart';
 import 'package:doarun/widgets_default/loading.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:share/share.dart';
 
-import '../../style/color.dart';
+import '../../../style/color.dart';
 
 class Ranking extends StatefulWidget {
   final EntityGroup group;
@@ -49,25 +50,10 @@ class _Ranking extends State<Ranking> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 25.0),
-                  child: Stack(
-                    alignment: AlignmentDirectional.centerStart,
-                    children: [
-                      Container(
-                        color: mainColor,
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.fromLTRB(5.0, 5.0, 15.0, 5.0),
-                          child: Text("This week", style: textStyleTitle),
-                        ),
-                      ),
-                      Positioned(
-                          right: 40,
-                          child:
-                              Text("Total distance", style: textStyleDistance))
-                    ],
-                  ),
+                  width: 130,
+                  color: mainColor,
+                  padding: EdgeInsets.all(8.0),
+                  child: Text("This week", style: textStyleTitle),
                 ),
                 Container(height: 10),
                 isNobody(groupStates.groupAccounts)
@@ -142,25 +128,20 @@ class _Board extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                    width: 25,
-                    child: Text((index + 1).toString() + ".",
-                        style: textStyleH1Accent)),
+                Spacer(),
+                Text((index + 1).toString() + ".", style: textStyleH1Accent),
+                kIsWeb ? SizedBox(width: 30) : Spacer(),
                 ProfilePicture(
                     height: 50,
                     width: 50,
                     pictureUrl: members[index].pictureUrl.value),
-                Container(
-                    width: 50,
-                    child: AutoSizeText(members[index].name.value,
-                        maxLines: 1, style: textStyleNames)),
-                Container(
-                    width: 75,
-                    child: Text(
-                        members[index].totalDistance.toStringAsFixed(3) +
-                            "km")),
+                kIsWeb ? SizedBox(width: 30) : Spacer(),
+                AutoSizeText(members[index].name.value,
+                    maxLines: 1, style: textStyleNames),
+                kIsWeb ? SizedBox(width: 30) : Spacer(),
+                Text(members[index].totalDistance.toStringAsFixed(3) + "km"),
+                Spacer(),
               ],
             ),
           );
