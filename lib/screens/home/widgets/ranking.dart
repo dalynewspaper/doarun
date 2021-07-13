@@ -9,12 +9,13 @@ import 'package:doarun/utils/dynamic_link.dart';
 import 'package:doarun/widgets_common/profile_picture.dart';
 import 'package:doarun/widgets_default/loading.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:share/share.dart';
 
-import '../../style/color.dart';
+import '../../../style/color.dart';
 
 class Ranking extends StatefulWidget {
   final EntityGroup group;
@@ -44,19 +45,38 @@ class _Ranking extends State<Ranking> {
     return FutureBuilder(
         future: _future,
         builder: (BuildContext context, snapshot) {
-          if (snapshot.hasError) print(snapshot.error);
           if (snapshot.hasData)
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                _makeHeaderRanking(context),
+                Container(
+                  width: 130,
+                  color: mainColor,
+                  padding: EdgeInsets.all(8.0),
+                  child: Text("This week", style: textStyleTitle),
+                ),
                 Container(height: 10),
                 isNobody(groupStates.groupAccounts)
                     ? _getNobodyRan()
                     : Container(),
                 _Board(members: groupStates.groupAccounts),
                 groupStates.groupAccounts.length <= 1
-                    ? _getInvite()
+                    ? Center(
+                        child: Column(
+                        children: [
+                          SizedBox(height: 30),
+                          Lottie.asset("assets/runner.json",
+                              fit: BoxFit.contain, repeat: true, height: 200),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              "Looks like you are on your own in here. Invite some friends to join you !",
+                              style: textStyleKMNumber,
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ))
                     : Container(),
                 SizedBox(height: 30),
                 _AddMemberButton(groupName: groupStates.group.value.name),
@@ -91,25 +111,6 @@ class _Ranking extends State<Ranking> {
       ]),
     );
   }
-
-  Widget _getInvite() {
-    return Center(
-        child: Column(
-      children: [
-        SizedBox(height: 30),
-        Lottie.asset("assets/runner.json",
-            fit: BoxFit.contain, repeat: true, height: 200),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            "Looks like you are on your own in here. Invite some friends to join you !",
-            style: textStyleKMNumber,
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ],
-    ));
-  }
 }
 
 class _Board extends StatelessWidget {
@@ -124,61 +125,28 @@ class _Board extends StatelessWidget {
         shrinkWrap: true,
         itemCount: members.length,
         itemBuilder: (context, index) {
-          return _getList(index);
+          return Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Spacer(),
+                Text((index + 1).toString() + ".", style: textStyleH1Accent),
+                kIsWeb ? SizedBox(width: 30) : Spacer(),
+                ProfilePicture(
+                    height: 50,
+                    width: 50,
+                    pictureUrl: members[index].pictureUrl.value),
+                kIsWeb ? SizedBox(width: 30) : Spacer(),
+                AutoSizeText(members[index].name.value,
+                    maxLines: 1, style: textStyleNames),
+                kIsWeb ? SizedBox(width: 30) : Spacer(),
+                Text(members[index].totalDistance.toStringAsFixed(3) + "km"),
+                Spacer(),
+              ],
+            ),
+          );
         });
   }
-
-  Widget _getList(int index) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Container(
-              width: 25,
-              child:
-                  Text((index + 1).toString() + ".", style: textStyleH1Accent)),
-          ProfilePicture(
-              height: 50,
-              width: 50,
-              pictureUrl: members[index].pictureUrl.value),
-          Container(
-              width: 50,
-              child: AutoSizeText(members[index].name.value,
-                  maxLines: 1, style: textStyleNames)),
-          Container(
-              width: 75,
-              child:
-                  Text(members[index].totalDistance.toStringAsFixed(3) + "km")),
-        ],
-      ),
-    );
-  }
-}
-
-_makeTitle() {
-  return Container(
-    color: mainColor,
-    child: Padding(
-      padding: const EdgeInsets.fromLTRB(5.0, 5.0, 15.0, 5.0),
-      child: Text("This week", style: textStyleTitle),
-    ),
-  );
-}
-
-_makeHeaderRanking(context) {
-  return Container(
-    width: MediaQuery.of(context).size.width,
-    padding: const EdgeInsets.fromLTRB(0, 0, 0, 25.0),
-    child: Stack(
-      alignment: AlignmentDirectional.centerStart,
-      children: [
-        _makeTitle(),
-        Positioned(
-            right: 40, child: Text("Total distance", style: textStyleDistance))
-      ],
-    ),
-  );
 }
 
 class _AddMemberButton extends StatelessWidget {

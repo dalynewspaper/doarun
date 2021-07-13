@@ -1,7 +1,8 @@
-import 'package:doarun/screens/home/group_selector.dart';
-import 'package:doarun/screens/home/ranking.dart';
+import 'package:doarun/screens/home/layouts/mobile.dart';
+import 'package:doarun/screens/home/layouts/web.dart';
 import 'package:doarun/states/account_states.dart';
 import 'package:doarun/states/group_states.dart';
+import 'package:doarun/style/color.dart';
 import 'package:doarun/utils/database/api.dart';
 import 'package:doarun/utils/dynamic_link.dart';
 import 'package:doarun/widgets_common/profile_picture.dart';
@@ -11,8 +12,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
-
-import 'latest_run.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -50,30 +49,17 @@ class _Home extends State<Home> {
           if (snapshot.hasError) print(snapshot.error);
           if (snapshot.hasData)
             return WillPopScope(
-              onWillPop: () async {
-                return true;
-              },
-              child: Scaffold(
+                onWillPop: () async {
+                  return true;
+                },
+                child: Scaffold(
                   appBar: getHomeAppBar(),
-                  body: Padding(
-                    padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-                    child: ListView(
-                      shrinkWrap: true,
-                      children: [
-                        GroupSelector(),
-                        SizedBox(height: 30),
-                        Obx(() => Ranking(group: groupStates.group.value)),
-                        SizedBox(height: 35),
-                        Obx(
-                          () =>
-                              groupStates.group.value.lastRunPolyline.isNotEmpty
-                                  ? LatestRun(group: groupStates.group.value)
-                                  : Container(),
-                        )
-                      ],
-                    ),
-                  )),
-            );
+                  body: !kIsWeb ||
+                          MediaQuery.of(context).size.width <
+                              MediaQuery.of(context).size.height
+                      ? HomeMobileLayout()
+                      : HomeWebLayout(),
+                ));
           else
             return DoarunLoading();
         });
@@ -81,17 +67,15 @@ class _Home extends State<Home> {
 
   AppBar getHomeAppBar() {
     return AppBar(
-      backgroundColor: Colors.transparent,
+      backgroundColor: mainColor,
       elevation: 0.0,
+      toolbarHeight: 75,
+      leading: Container(),
       actions: [
         Container(width: 12),
-        Container(
-          height: 50,
-          width: 50,
-          child: SvgPicture.asset(
-            "assets/doarun.svg",
-            fit: BoxFit.contain,
-          ),
+        SvgPicture.asset(
+          "assets/doarun-long.svg",
+          fit: BoxFit.contain,
         ),
         Expanded(child: Container()),
         ProfilePicture(

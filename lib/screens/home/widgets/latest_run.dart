@@ -23,11 +23,11 @@ class LatestRun extends StatelessWidget {
         points: convertToLatLng(decodePoly(group.lastRunPolyline))));
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Container(
-          color: mainColor,
-          child: Padding(
-            padding: const EdgeInsets.fromLTRB(5.0, 5.0, 15.0, 5.0),
-            child: Text("Latest runs".toUpperCase(), style: textStyleTitle),
-          )),
+        width: 150,
+        color: mainColor,
+        padding: EdgeInsets.all(8.0),
+        child: Text("Latest runs".toUpperCase(), style: textStyleTitle),
+      ),
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -42,18 +42,18 @@ class LatestRun extends StatelessWidget {
             ),
             SizedBox(height: 5),
             SizedBox(
-              height: 300,
-              width: MediaQuery.of(context).size.width,
+              width: kIsWeb ? 500 : MediaQuery.of(context).size.width,
+              height: kIsWeb ? 500 : MediaQuery.of(context).size.width,
               child: GoogleMap(
-                gestureRecognizers: Set()
-                  ..add(Factory<PanGestureRecognizer>(
-                      () => PanGestureRecognizer())),
-                initialCameraPosition: CameraPosition(
-                    target: polylines.first.points.first, zoom: 20.0),
-                mapType: MapType.hybrid,
-                polylines: polylines,
-                onMapCreated: (GoogleMapController controller) {},
-              ),
+                  gestureRecognizers: Set()
+                    ..add(Factory<PanGestureRecognizer>(
+                        () => PanGestureRecognizer())),
+                  initialCameraPosition: CameraPosition(
+                      target: polylines.first.points.first, zoom: 20.0),
+                  mapType: MapType.hybrid,
+                  polylines: polylines,
+                  compassEnabled: false,
+                  tiltGesturesEnabled: false),
             ),
           ],
         ),

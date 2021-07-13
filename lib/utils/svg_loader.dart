@@ -4,6 +4,9 @@ class AssetsLoader {
   static final List<String> svgPaths = [
     "assets/doarun.svg",
     "assets/ground.svg",
+    "assets/doarun-long.svg",
+    "assets/target.svg",
+    "assets/road-loop.svg",
   ];
 
   Future<void> loadSVGs() async {
