@@ -5,11 +5,14 @@ import 'package:doarun/utils/polyline.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class LatestRun extends StatelessWidget {
-  final Set<Polyline> polylines = {};
   final EntityGroup group;
+
+  final PolylinePoints polylinePoints = PolylinePoints();
+  final Set<Polyline> polylines = {};
 
   LatestRun({@required this.group});
 
@@ -20,7 +23,8 @@ class LatestRun extends StatelessWidget {
         width: 3,
         color: mainColor,
         polylineId: id,
-        points: convertToLatLng(decodePoly(group.lastRunPolyline))));
+        points: convertToLatLng(
+            polylinePoints.decodePolyline(group.lastRunPolyline))));
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Container(
         width: 150,
