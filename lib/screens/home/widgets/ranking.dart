@@ -17,33 +17,17 @@ import 'package:share/share.dart';
 
 import '../../../style/color.dart';
 
-class Ranking extends StatefulWidget {
+class Ranking extends StatelessWidget {
   final EntityGroup group;
+  final AccountStates accountStates = Get.find();
+  final GroupStates groupStates = Get.find();
 
   Ranking({@required this.group});
 
   @override
-  State<StatefulWidget> createState() => _Ranking(group: group);
-}
-
-class _Ranking extends State<Ranking> {
-  final AccountStates accountStates = Get.find();
-  final GroupStates groupStates = Get.find();
-  final EntityGroup group;
-  Future _future;
-
-  _Ranking({@required this.group});
-
-  @override
-  void initState() {
-    _future = groupStates.readAllAccounts();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: _future,
+        future: groupStates.readAllAccounts(),
         builder: (BuildContext context, snapshot) {
           if (snapshot.hasData)
             return Column(
@@ -56,10 +40,14 @@ class _Ranking extends State<Ranking> {
                   child: Text("This week", style: textStyleTitle),
                 ),
                 Container(height: 10),
-                isNobody(groupStates.groupAccounts)
-                    ? _getNobodyRan()
+                groupStates.groupAccounts
+                        .where((element) => element.totalDistance > 0)
+                        .isEmpty
+                    ? _NobodyRan()
                     : Container(),
-                _Board(members: groupStates.groupAccounts),
+                _Board(
+                    members: groupStates.groupAccounts,
+                    targetKm: group.targetKm),
                 groupStates.groupAccounts.length <= 1
                     ? Center(
                         child: Column(
@@ -86,66 +74,81 @@ class _Ranking extends State<Ranking> {
             return DoarunLoading();
         });
   }
-
-  bool isNobody(List<EntityAccount> members) {
-    bool ret = true;
-    members.forEach((EntityAccount element) {
-      if (element.totalDistance > 0) {
-        ret = false;
-        return;
-      }
-    });
-    return ret;
-  }
-
-  _getNobodyRan() {
-    return Center(
-      child: Column(children: [
-        Text(
-          "😴",
-          style: TextStyle(fontSize: 30),
-        ),
-        SizedBox(height: 5),
-        Text("Nobody has ran this week!", style: textStyleInfos),
-        SizedBox(height: 30)
-      ]),
-    );
-  }
 }
 
 class _Board extends StatelessWidget {
   final RxList<EntityAccount> members;
+  final double targetKm;
 
-  _Board({@required this.members});
+  _Board({@required this.members, @required this.targetKm});
 
   @override
   Widget build(BuildContext context) {
+    bool isTargetLineDrawn = false;
     members.sort((a, b) => b.totalDistance.compareTo(a.totalDistance));
     return ListView.builder(
         shrinkWrap: true,
         itemCount: members.length,
         itemBuilder: (context, index) {
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
+          if (!isTargetLineDrawn && members[index].totalDistance < targetKm) {
+            isTargetLineDrawn = true;
+            return Column(
               children: [
-                Spacer(),
-                Text((index + 1).toString() + ".", style: textStyleH1Accent),
-                kIsWeb ? SizedBox(width: 30) : Spacer(),
-                ProfilePicture(
-                    height: 50,
-                    width: 50,
-                    pictureUrl: members[index].pictureUrl.value),
-                kIsWeb ? SizedBox(width: 30) : Spacer(),
-                AutoSizeText(members[index].name.value,
-                    maxLines: 1, style: textStyleNames),
-                kIsWeb ? SizedBox(width: 30) : Spacer(),
-                Text(members[index].totalDistance.toStringAsFixed(3) + "km"),
-                Spacer(),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text(targetKm.toString() + "KM TARGET",
+                          style: textStyleTitleH2.copyWith(color: accentColor)),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        color: accentColor,
+                        height: 3,
+                      ),
+                    ],
+                  ),
+                ),
+                _MemberRow(position: index + 1, account: members[index])
               ],
-            ),
-          );
+            );
+          } else
+            return _MemberRow(
+              position: index + 1,
+              account: members[index],
+            );
         });
+  }
+}
+
+class _MemberRow extends StatelessWidget {
+  final int position;
+  final EntityAccount account;
+
+  _MemberRow({@required this.position, @required this.account});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        children: [
+          SizedBox(
+              width: 50,
+              child:
+                  Text((position).toString() + ".", style: textStyleH1Accent)),
+          ProfilePicture(
+              height: 50, width: 50, pictureUrl: account.pictureUrl.value),
+          SizedBox(width: 30),
+          SizedBox(
+            width: 75,
+            child: AutoSizeText(account.name.value,
+                maxLines: 1, style: textStyleNames),
+          ),
+          Text(account.totalDistance.toStringAsFixed(3) + "km"),
+        ],
+      ),
+    );
   }
 }
 
@@ -168,10 +171,27 @@ class _AddMemberButton extends StatelessWidget {
                   color: accentColor, borderRadius: BorderRadius.circular(40)),
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: Icon(Icons.person_add, size: 40, color: Colors.white),
+                child: Icon(Icons.person_add, size: 30, color: Colors.white),
               )),
         ],
       ),
+    );
+  }
+}
+
+class _NobodyRan extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(children: [
+        Text(
+          "😴",
+          style: TextStyle(fontSize: 30),
+        ),
+        SizedBox(height: 5),
+        Text("Nobody has ran this week!", style: textStyleInfos),
+        SizedBox(height: 30)
+      ]),
     );
   }
 }

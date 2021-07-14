@@ -46,8 +46,9 @@ class GroupSelector extends StatelessWidget {
                     }).toList(),
                   )),
               Spacer(),
-              Text(groupStates.group.value.targetKm.toString() + " KM",
-                  style: textStyleKMNumber),
+              Obx(() => Text(
+                  groupStates.group.value.targetKm.toString() + " KM",
+                  style: textStyleKMNumber)),
               Container(width: 10),
               SvgPicture.asset(
                 "assets/target.svg",
