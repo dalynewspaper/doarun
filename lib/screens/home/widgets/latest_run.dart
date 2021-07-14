@@ -18,7 +18,7 @@ class LatestRun extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    PolylineId id = PolylineId("poly");
+    final PolylineId id = PolylineId("poly");
     polylines.add(Polyline(
         width: 3,
         color: mainColor,
@@ -53,8 +53,9 @@ class LatestRun extends StatelessWidget {
                     ..add(Factory<PanGestureRecognizer>(
                         () => PanGestureRecognizer())),
                   initialCameraPosition: CameraPosition(
-                      target: polylines.first.points.first, zoom: 20.0),
-                  mapType: MapType.hybrid,
+                      target: _getAverageLatLng(polylines.first.points),
+                      zoom: 15.0),
+                  mapType: MapType.terrain,
                   polylines: polylines,
                   compassEnabled: false,
                   tiltGesturesEnabled: false),
@@ -63,5 +64,18 @@ class LatestRun extends StatelessWidget {
         ),
       )
     ]);
+  }
+
+  LatLng _getAverageLatLng(List<LatLng> points) {
+    final List<double> lats = [];
+    points.forEach((element) {
+      lats.add(element.latitude);
+    });
+    final List<double> lons = [];
+    points.forEach((element) {
+      lons.add(element.longitude);
+    });
+    return LatLng(lats.reduce((a, b) => a + b) / lats.length,
+        lons.reduce((a, b) => a + b) / lons.length);
   }
 }
