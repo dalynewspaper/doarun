@@ -24,7 +24,7 @@ class HomeWebLayout extends StatelessWidget {
                   child: Obx(() => Ranking(group: groupStates.group.value))),
               Expanded(
                 child: Obx(
-                  () => groupStates.group.value.lastRunPolyline.isNotEmpty
+                  () => groupStates.group.value.lastRun.polyline.isNotEmpty
                       ? LatestRun(group: groupStates.group.value)
                       : Container(),
                 ),

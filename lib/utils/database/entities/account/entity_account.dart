@@ -8,15 +8,10 @@ class EntityAccount extends GetxController {
   String uid;
   RxString name = "".obs;
   RxString pictureUrl = "".obs;
-  double totalDistance = 0.0;
   RxInt onboardingStep = ID_ONBOARDING_STEP_AUTH.obs;
   String refreshToken = "";
   int stravaId = -1;
-
-  //last run
-  String lastRunPolyline = "";
-  int lastRunTimestamp = 0;
-  double lastRunDistance = 0.0;
+  double weeklyDistance = 0.0;
 
   EntityAccount();
 
@@ -28,13 +23,11 @@ class EntityAccount extends GetxController {
     return {
       "name": this.name.value,
       "pictureUrl": this.pictureUrl.value,
-      "totalDistance": this.totalDistance,
+      "totalDistance": this.weeklyDistance,
       "onboardingStep": this.onboardingStep.value,
       "refreshToken": this.refreshToken,
       "stravaId": this.stravaId,
-      "lastRunPolyline": this.lastRunPolyline,
-      "lastRunTimestamp": this.lastRunTimestamp,
-      "lastRunDistance": this.lastRunDistance,
+      "weeklyDistance": this.weeklyDistance,
     };
   }
 
@@ -47,13 +40,10 @@ class EntityAccount extends GetxController {
     this.uid = key;
     this.name.value = data["name"];
     this.pictureUrl.value = data["pictureUrl"];
-    this.totalDistance = data["totalDistance"].toDouble();
     this.onboardingStep.value = data["onboardingStep"];
     this.refreshToken = data["refreshToken"];
     this.stravaId = data["stravaId"];
-    this.lastRunPolyline = data["lastRunPolyline"];
-    this.lastRunTimestamp = data["lastRunTimestamp"];
-    this.lastRunDistance = data["lastRunDistance"];
+    this.weeklyDistance = data["weeklyDistance"].toDouble();
     return true;
   }
 }

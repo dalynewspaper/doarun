@@ -1,12 +1,15 @@
 import 'dart:convert';
 
+import 'package:doarun/flavors.dart';
 import 'package:doarun/utils/http.dart';
 import 'package:flutter_web_auth/flutter_web_auth.dart';
 import 'package:http/http.dart';
 
 class ServiceStrava {
-  final clientId = "62285";
-  final clientSecret = "604cd72fbccdf35aac78f60ff67d41389751dabc";
+  final clientId = F.title == "dev" ? "65432" : "62285";
+  final clientSecret = F.title == "dev"
+      ? "26c2e44b133cc407cafa410b35bb179bae2fa725"
+      : "604cd72fbccdf35aac78f60ff67d41389751dabc";
 
   //methods
   Future<Map> auth() async {
@@ -39,35 +42,5 @@ class ServiceStrava {
       "scope": "activity:read_all"
     });
     return json.decode(response.body);
-  }
-
-  Future<Map> getAthleteStats(int stravaId, String accessToken) async {
-    final Response response = await client.get(
-        Uri.parse("https://www.strava.com/api/v3/athletes/" +
-            stravaId.toString() +
-            "/stats"),
-        headers: {"Authorization": "Bearer $accessToken"});
-    return json.decode(response.body);
-  }
-
-  Future<Map> getAthleteLastActivity(
-      int fromTimestamp, String accessToken) async {
-    final Response activitiesResponse = await client.get(
-        Uri.parse("https://www.strava.com/api/v3/athlete/activities?after=" +
-            fromTimestamp.toString()),
-        headers: {"Authorization": "Bearer $accessToken"});
-    try {
-      final List activities = json.decode(activitiesResponse.body);
-      Map lastActivity = activities.first;
-      activities.forEach((element) {
-        if (DateTime.parse(element["start_date"])
-            .isAfter(DateTime.parse(lastActivity["start_date"])))
-          lastActivity = element;
-      });
-      print(lastActivity);
-      return lastActivity;
-    } catch (e) {
-      return Map();
-    }
   }
 }

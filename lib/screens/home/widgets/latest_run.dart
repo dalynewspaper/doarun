@@ -24,7 +24,7 @@ class LatestRun extends StatelessWidget {
         color: mainColor,
         polylineId: id,
         points: convertToLatLng(
-            polylinePoints.decodePolyline(group.lastRunPolyline))));
+            polylinePoints.decodePolyline(group.lastRun.polyline))));
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Container(
         width: 150,
@@ -38,9 +38,9 @@ class LatestRun extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              group.lastRunner +
+              group.lastRun.ownerName +
                   " put in " +
-                  (group.lastRunDistance / 1000).toStringAsFixed(3) +
+                  group.lastRun.distance.toString() +
                   "km",
               style: textStyleH2.copyWith(color: mainColor),
             ),
