@@ -10,22 +10,19 @@ class HomeMobileLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
-      child: ListView(
-        shrinkWrap: true,
-        children: [
-          GroupSelector(),
-          SizedBox(height: 30),
-          Obx(() => Ranking(group: groupStates.group.value)),
-          SizedBox(height: 35),
-          Obx(
-            () => groupStates.group.value.lastRunPolyline.isNotEmpty
-                ? LatestRun(group: groupStates.group.value)
-                : Container(),
-          )
-        ],
-      ),
+    return ListView(
+      shrinkWrap: true,
+      children: [
+        GroupSelector(),
+        SizedBox(height: 30),
+        Obx(() => Ranking(group: groupStates.group.value)),
+        SizedBox(height: 35),
+        Obx(
+          () => groupStates.group.value.lastRun.polyline.isNotEmpty
+              ? LatestRun(group: groupStates.group.value)
+              : Container(),
+        )
+      ],
     );
   }
 }

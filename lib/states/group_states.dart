@@ -21,19 +21,10 @@ class GroupStates extends GetxController {
   Future<bool> readAllAccounts() async {
     groupAccounts.clear();
     await Future.forEach(group.value.accounts, (accountUid) async {
-      groupAccounts.add(await API.entries.accounts.read(accountUid));
+      EntityAccount account = await API.entries.accounts.read(accountUid);
+      if (!groupAccounts.contains(account)) groupAccounts.add(account);
     });
     return true;
-  }
-
-  Future<void> updateLatestRun(EntityAccount account) async {
-    if (group.value.lastRunTimestamp < account.lastRunTimestamp) {
-      group.value.lastRunTimestamp = account.lastRunTimestamp;
-      group.value.lastRunner = account.name.value;
-      group.value.lastRunPolyline = account.lastRunPolyline;
-      group.value.lastRunDistance = account.lastRunDistance;
-      updateGroup();
-    }
   }
 
   // CRUD

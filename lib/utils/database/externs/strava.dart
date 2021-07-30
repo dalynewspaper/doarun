@@ -43,33 +43,4 @@ class ServiceStrava {
     });
     return json.decode(response.body);
   }
-
-  Future<Map> getAthleteStats(int stravaId, String accessToken) async {
-    final Response response = await client.get(
-        Uri.parse("https://www.strava.com/api/v3/athletes/" +
-            stravaId.toString() +
-            "/stats"),
-        headers: {"Authorization": "Bearer $accessToken"});
-    return json.decode(response.body);
-  }
-
-  Future<Map> getAthleteLastActivity(
-      int fromTimestamp, String accessToken) async {
-    final Response activitiesResponse = await client.get(
-        Uri.parse("https://www.strava.com/api/v3/athlete/activities?after=" +
-            fromTimestamp.toString()),
-        headers: {"Authorization": "Bearer $accessToken"});
-    try {
-      final List activities = json.decode(activitiesResponse.body);
-      Map lastActivity = activities.first;
-      activities.forEach((element) {
-        if (DateTime.parse(element["start_date"])
-            .isAfter(DateTime.parse(lastActivity["start_date"])))
-          lastActivity = element;
-      });
-      return lastActivity;
-    } catch (e) {
-      return Map();
-    }
-  }
 }

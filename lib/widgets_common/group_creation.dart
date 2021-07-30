@@ -111,7 +111,6 @@ class GroupCreation extends StatelessWidget {
     } else {
       groupStates.groupTmp.accounts.add(accountStates.account.uid);
       groupStates.groupTmp.owner = accountStates.account.uid;
-      groupStates.groupTmp.lastRunTimestamp = 0;
       await groupStates.createGroup(groupStates.groupTmp);
       groupStates.group.value = groupStates.groupTmp;
       groupStates.groupTmp = EntityGroup();

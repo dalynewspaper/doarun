@@ -3,6 +3,7 @@ import 'package:doarun/states/app_states.dart';
 import 'package:doarun/style/color.dart';
 import 'package:doarun/style/text.dart';
 import 'package:doarun/utils/auth.dart';
+import 'package:doarun/utils/database/api.dart';
 import 'package:doarun/utils/local_storage/consts.dart';
 import 'package:doarun/utils/local_storage/local_storage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -63,6 +64,10 @@ class OnboardingAuth extends StatelessWidget {
       if (await accountStates.doesAccountExists(firebaseUser.uid))
         await appStates.readUserData(firebaseUser.uid);
       else {
+        final Map refreshTokenResponse = await API.extern.strava
+            .getAccessToken(accountStates.account.refreshToken);
+        accountStates.account.refreshToken =
+            refreshTokenResponse["refresh_token"];
         accountStates.account.uid = authService.auth.currentUser.uid;
         accountStates.account.name.value = firebaseUser.displayName;
         accountStates.account.pictureUrl.value = firebaseUser.photoURL;

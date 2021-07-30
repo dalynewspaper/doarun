@@ -41,7 +41,7 @@ class Ranking extends StatelessWidget {
                 ),
                 Container(height: 10),
                 groupStates.groupAccounts
-                        .where((element) => element.totalDistance > 0)
+                        .where((element) => element.weeklyDistance > 0)
                         .isEmpty
                     ? _NobodyRan()
                     : Container(),
@@ -85,12 +85,12 @@ class _Board extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool isTargetLineDrawn = false;
-    members.sort((a, b) => b.totalDistance.compareTo(a.totalDistance));
+    members.sort((a, b) => b.weeklyDistance.compareTo(a.weeklyDistance));
     return ListView.builder(
         shrinkWrap: true,
         itemCount: members.length,
         itemBuilder: (context, index) {
-          if (!isTargetLineDrawn && members[index].totalDistance < targetKm) {
+          if (!isTargetLineDrawn && members[index].weeklyDistance < targetKm) {
             isTargetLineDrawn = true;
             return Column(
               children: [
@@ -145,7 +145,7 @@ class _MemberRow extends StatelessWidget {
             child: AutoSizeText(account.name.value,
                 maxLines: 1, style: textStyleNames),
           ),
-          Text(account.totalDistance.toStringAsFixed(3) + "km"),
+          Text(account.weeklyDistance.toStringAsFixed(3) + "km"),
         ],
       ),
     );

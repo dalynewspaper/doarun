@@ -34,7 +34,6 @@ class GroupSelector extends StatelessWidget {
                       groupStates.group.value = groupStates.groupsOwned
                           .where((element) => element.name == newValue)
                           .first;
-                      groupStates.updateLatestRun(accountStates.account);
                     },
                     items: groupStates.groupsOwned
                         .map((e) => e.name)

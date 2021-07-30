@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:core';
 
+import 'package:doarun/utils/database/entities/group/entity_latest_run.dart';
 import 'package:get/get.dart';
 
 class EntityGroup extends GetxController {
@@ -10,11 +11,7 @@ class EntityGroup extends GetxController {
   String owner = "";
   List accounts = [];
 
-  //last run
-  String lastRunPolyline = "";
-  String lastRunner = "";
-  int lastRunTimestamp = 0;
-  double lastRunDistance = 0.0;
+  EntityLastRun lastRun = EntityLastRun();
 
   EntityGroup();
 
@@ -28,10 +25,7 @@ class EntityGroup extends GetxController {
       "targetKm": this.targetKm,
       "owner": this.owner,
       "accounts": this.accounts,
-      "lastRunPolyline": this.lastRunPolyline,
-      "lastRunner": this.lastRunner,
-      "lastRunTimestamp": this.lastRunTimestamp,
-      "lastRunDistance": this.lastRunDistance,
+      "lastRun": this.lastRun.toMap(),
     };
   }
 
@@ -46,10 +40,7 @@ class EntityGroup extends GetxController {
     this.targetKm = data["targetKm"];
     this.owner = data["owner"];
     this.accounts.assignAll(data["accounts"]);
-    this.lastRunPolyline = data["lastRunPolyline"];
-    this.lastRunner = data["lastRunner"];
-    this.lastRunTimestamp = data["lastRunTimestamp"];
-    this.lastRunDistance = data["lastRunDistance"];
+    this.lastRun = EntityLastRun.fromJson(data["lastRun"]);
     return true;
   }
 }
