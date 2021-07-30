@@ -89,6 +89,7 @@ class _Board extends StatelessWidget {
     return ListView.builder(
         shrinkWrap: true,
         itemCount: members.length,
+        physics: NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           if (!isTargetLineDrawn && members[index].weeklyDistance < targetKm) {
             isTargetLineDrawn = true;

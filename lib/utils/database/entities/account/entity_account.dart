@@ -23,7 +23,6 @@ class EntityAccount extends GetxController {
     return {
       "name": this.name.value,
       "pictureUrl": this.pictureUrl.value,
-      "totalDistance": this.weeklyDistance,
       "onboardingStep": this.onboardingStep.value,
       "refreshToken": this.refreshToken,
       "stravaId": this.stravaId,
