@@ -42,7 +42,7 @@ class EntityAccount extends GetxController {
     this.onboardingStep.value = data["onboardingStep"];
     this.refreshToken = data["refreshToken"];
     this.stravaId = data["stravaId"];
-    this.weeklyDistance = data["weeklyDistance"].toDouble();
+    this.weeklyDistance = data["weeklyDistance"]?.toDouble();
     return true;
   }
 }

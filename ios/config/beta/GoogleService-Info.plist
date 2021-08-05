@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>878477674139-ji47ucp8cupmsnb8af840vnv3932dkrn.apps.googleusercontent.com</string>
+	<string>40593123332-klgqk4nf05q81uu4k4d42o6godbjb9rd.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.878477674139-ji47ucp8cupmsnb8af840vnv3932dkrn</string>
+	<string>com.googleusercontent.apps.40593123332-klgqk4nf05q81uu4k4d42o6godbjb9rd</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>878477674139-0igf2k76v1pb825jo4luk1flkr4t2ul9.apps.googleusercontent.com</string>
+	<string>40593123332-6ecb65uqrm85b6rr1iv6vsa1qmhq8epd.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyA_l43iXMWQFuXlbzGRqCgXIzSB2ruD8LA</string>
+	<string>AIzaSyA2wr88toPCsRz2RtASok4V5B7pX63GG-8</string>
 	<key>GCM_SENDER_ID</key>
-	<string>878477674139</string>
+	<string>40593123332</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>dev.doarun.app</string>
+	<string>doarun.app.beta</string>
 	<key>PROJECT_ID</key>
-	<string>doarun-ecf2d</string>
+	<string>doarun-beta</string>
 	<key>STORAGE_BUCKET</key>
-	<string>doarun-ecf2d.appspot.com</string>
+	<string>doarun-beta.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:878477674139:ios:755311eeb19d47e197a83e</string>
+	<string>1:40593123332:ios:0106aa03aa4abb11796d51</string>
 </dict>
 </plist>
